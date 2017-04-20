@@ -1,0 +1,65 @@
+# NAMESPACE for AHMbook package
+
+importFrom("grDevices", "colorRampPalette", "devAskNewPage",
+             "topo.colors", "adjustcolor")
+importFrom("graphics", "abline", "barplot", "curve", "hist", "image",
+           "lines", "matplot", "par", "plot", "points", "polygon",
+           "rect", "segments", "text", "title", "axis")
+importFrom("methods", "as", "is", "new")
+importFrom("stats", "as.formula", "coef", "confint", "dbinom",
+           "dnbinom", "dnorm", "dpois", "fitted", "integrate", "lm",
+           "model.frame", "model.matrix", "model.offset", "optim",
+           "plogis", "qlogis", "quantile", "rbinom", "residuals",
+           "rexp", "rmultinom", "rnbinom", "rnorm", "rpois", "runif",
+           "var", "vcov")
+importFrom("utils", "head", "stack")
+importFrom("unmarked", "unmarkedFrameOccu", "occuRN", "bup", "ranef",
+  "coef", "fitted", "residuals", "vcov", "confint")
+importFrom("raster", "raster", "extent", "extent<-", "rasterFromXYZ", "getValues", "image")
+importFrom("plotrix", "draw.circle")
+importFrom("RandomFields", "RFoptions", "RFsimulate", "RMexp")
+importFrom("sp", "bubble", "coordinates<-")
+importFrom("coda", "crosscorr")
+
+
+# Chapter 1
+export("sim.fn")
+
+# Chapter 4
+export("data.fn")
+
+# Chapter 6
+export("simNmix", "ppc.plot", "map.Nmix.resi", "simpleNmix", "playRN")
+export("plot_Nmix_resi")
+
+# Chapter 7
+export("fitstats", "fitstats2")
+export("crPiFun", "crPiFun.Mb", "MhPiFun", "instRemPiFun")
+
+# Chapter 8
+export("sim.ldata", "sim.pdata", "simHDS")
+
+# Chapter 9
+export("simHDSg", "simHDStr", "simHDSopen", "issj.sim", "sim.spatialDS", "sim.spatialHDS")
+#  "pcount.spHDS" # now in unmarked
+export("e2dist")
+export("image_scale")
+
+# Chapter 10
+export("simOcc", "sim3Occ", "simOccttd", "wigglyOcc", "spline.prep")
+
+# Chapter 11
+export("simComm")
+
+# Chapter 15
+export("simDynocc")
+
+# Chapter 17
+export("simDCM")
+
+# Chapter 20
+export("spatial.exp")
+
+export("bigCrossCorr")
+
+

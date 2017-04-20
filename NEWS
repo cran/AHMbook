@@ -1,0 +1,39 @@
+CHANGES in 0.1.2
+
+  * Function pcount.spHDS and predict methods for unmarkedFit objects have moved to the unmarked package v.0.12; AHMbook now Depends on unmarked (>=0.12).
+
+  * Added the MHB2014, SwissSquirrels, SwissTits, Finnmark, ttdPeregrine and wagtail data sets; see the help files for ways to use these instead of .csv files with the code in the book.
+
+  * Removed default arguments for the coordinates in map.Nmix.resi, making it more generally useful.
+
+  * Fixed: slew of warnings produced by simNmix, also dropping of dimensions with small numbers of individuals.
+
+  * Added more examples to the help pages for simulation functions.
+
+CHANGES in 0.1.1
+
+  * Full help pages for all functions.
+
+  * New names: plot.Nmix.resi -> plot_Nmix_resi and image.scale -> image_scale, to prevent clashes with R's 'plot' and 'image' generic functions.
+
+  * Fewer dependencies, and all checked when you load AHMbook: no more "there is no package called xxx" when you try to run a function.
+
+  * Changes to the "histograms" of counts, using transparent colours when two counts are plotted together.
+
+  * The dragonfly data have been tidied up; do data(dragonfly) before use.
+
+  * New functions for Volume 2: simDynocc and simDCM.
+
+  * The 'jay' dataset has moved to 'unmarked' package.
+
+  * Fixed: bugs involving 'logit'.
+
+  * Fixed: data.fn() now corresponds to the code in section 4.3.
+
+  * Fixed: simHDSg("point", ...), sim.spatialDS() and sim.spatialHDS() now work.
+
+  * Fixed: plotting functions now restore the settings of the graphics window on exit.
+
+  * Note: simComm("counts",...), simHDStr("point",...), and simHDSopen("point",...)
+      give slightly different results even with the same seed; all the other simulations
+      give the same values as before when set.seed() is used.
