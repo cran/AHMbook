@@ -1,7 +1,7 @@
 # Functions for the book Applied Hierarchical Modeling in Ecology (AHM)
 # Marc Kery & Andy Royle, Academic Press, 2016.
 
-# simHDStr - section 9.3.2 p474
+# simHDStr - AHM1 section 9.3.2 p474
 
 
 simHDStr <-
@@ -28,6 +28,15 @@ function(type = c("line", "point"), method=c("removal", "double"),
 #     p.double: detection probability for first and second observer
 #     B: strip half width
 #     discard0: whether to discard or keep the data from sites with nobody detected
+
+# Checks and fixes for input data -----------------------------
+nsites <- round(nsites[1])
+stopifNegative(lambda.group, allowZero=FALSE)
+stopifnotProbability(p.avail)
+K <- round(K)[1]
+stopifnotProbability(p.double)
+stopifNegative(B, allowZero=FALSE)
+# --------------------------------------------
 
 type <- match.arg(type)
 method <- match.arg(method)

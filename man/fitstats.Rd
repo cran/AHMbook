@@ -6,7 +6,7 @@
 Functions to return fit statistics
 }
 \description{
-\code{fitstats} produces sum of squared errors, Chi-squared statistic and Freeman-Tukey statistic used in parboot GOF tests throughout book, starting with Section 7.5.4. \code{fitstats2} produces the above, plus corresponding statistics based on numbers; see section 7.9.3.
+\code{fitstats} produces sum of squared errors, Chi-squared statistic and Freeman-Tukey statistic used in parboot GOF tests throughout book, starting with AHM1 - 7.5.4. \code{fitstats2} produces the above, plus corresponding statistics based on total detection frequency across replicate surveys; see AHM1 - 7.9.3.
 }
 \usage{
 fitstats(fm)
@@ -27,13 +27,8 @@ For \code{fitstats2}, a named vector of length 6 with the same information plus 
 
 }
 \references{
-Kéry & Royle (2016) \emph{Applied Hierarachical Modeling in Ecology} Sections 7.5.4 and 7.9.3.
+Kéry & Royle (2016) \emph{Applied Hierarchical Modeling in Ecology} AHM1 - 7.5.4 and 7.9.3.
 }
 \author{
-Kéry & Royle
-}
-
-
-\examples{
-## TO DO
+Marc Kéry & Andy Royle
 }

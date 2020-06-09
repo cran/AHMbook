@@ -9,14 +9,15 @@ Helper function to draw scale for image
 Plots a scale in the right margin of a plot, typically an image plot.
 }
 \usage{
-image_scale(z, col, x, y = NULL, size = NULL, digits = 2, labels = c("breaks", "ranges"))
+image_scale(z, col, x, y = NULL, size = NULL, digits = 2, labels = c("breaks", "ranges"),
+      cex.legend=1)
 }
 \arguments{
   \item{z}{
 the values plotted in the image, the \code{z} argument to \code{image}
 }
   \item{col}{
-a vector of colours, use the same as in the image
+a vector of colors, use the same as in the image
 }
   \item{x}{
 the x coordinate of the left edge of the scale bar; or a list with components x and y, each of length 2, giving the x and y coordinates of the edges of the scale bar.
@@ -31,7 +32,10 @@ the size of the boxes making up the scale bar, a length 2 vector with the width 
 the number of decimal places to display
 }
   \item{labels}{
-if "breaks", the dividing lines in the scale bar are labelled, if "ranges", each box is labelled with its range; may be abbreviated
+if "breaks", the dividing lines in the scale bar are labeled, if "ranges", each box is labeled with its range; may be abbreviated
+}
+  \item{cex.legend}{
+the magnification to be used for axis annotation
 }
 }
 
@@ -42,10 +46,10 @@ None, used for its plotting side effect.
 Royle, J.A., Chandler, R.B., Sollmann, R., & Gardner, B. (2014) \emph{Spatial capture-recapture} Elsevier.
 }
 \author{
-Borrowed from the \pkg{SCRbook} package.
+Andy Royle.
 }
 \note{
-This function appears in the text as \code{image.scale}; renamed to avoid confusion with generic \code{image} functions.
+This function appears in the text as \code{image.scale}; renamed here to avoid confusion with generic \code{image} functions.
 }
 
 \examples{
@@ -53,11 +57,11 @@ This function appears in the text as \code{image.scale}; renamed to avoid confus
 require(grDevices) # for colours
 require(graphics)
 par(mar = c(3,3,3,6))  # make the right margin wide enough
-image(t(volcano)[ncol(volcano):1,], col=terrain.colors(12)) 
+image(t(volcano)[ncol(volcano):1,], col=terrain.colors(12))
 image_scale(volcano, col=terrain.colors(12))
 # Try placing the scale bar on the left
 par(mar = c(3,8,3,1))  # make the left margin wide enough
-image(t(volcano)[ncol(volcano):1,], col=terrain.colors(12)) 
-image_scale(volcano, col=terrain.colors(12), x= -0.28, digits=0)
+image(t(volcano)[ncol(volcano):1,], col=terrain.colors(12))
+image_scale(volcano, col=terrain.colors(12), x= -0.28, digits=0, cex.legend=1.2)
 # Trial and error needed to get the x value right.
 }

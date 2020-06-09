@@ -1,65 +1,95 @@
 # NAMESPACE for AHMbook package
 
-importFrom("grDevices", "colorRampPalette", "devAskNewPage",
-             "topo.colors", "adjustcolor")
+importFrom("grDevices", "colorRampPalette", "devAskNewPage",  "dev.interactive",
+           "topo.colors", "adjustcolor", "rgb")
 importFrom("graphics", "abline", "barplot", "curve", "hist", "image",
-           "lines", "matplot", "par", "plot", "points", "polygon",
-           "rect", "segments", "text", "title", "axis")
+           "lines", "matplot", "par", "plot", "points", "polygon", "mtext",
+           "rect", "segments", "text", "title", "axis", "legend", "box")
 importFrom("methods", "as", "is", "new")
 importFrom("stats", "as.formula", "coef", "confint", "dbinom",
            "dnbinom", "dnorm", "dpois", "fitted", "integrate", "lm",
            "model.frame", "model.matrix", "model.offset", "optim",
            "plogis", "qlogis", "quantile", "rbinom", "residuals",
-           "rexp", "rmultinom", "rnbinom", "rnorm", "rpois", "runif",
-           "var", "vcov")
-importFrom("utils", "head", "stack")
+           "rexp", "rmultinom", "rnbinom", "rnorm", "rpois", "runif", "rlnorm",
+           "var", "vcov", "cov2cor", "cor", "sd", "aggregate")
+importFrom("utils", "head", "stack", "packageVersion", "data")
+
 importFrom("unmarked", "unmarkedFrameOccu", "occuRN", "bup", "ranef",
-  "coef", "fitted", "residuals", "vcov", "confint")
-importFrom("raster", "raster", "extent", "extent<-", "rasterFromXYZ", "getValues", "image")
+          "coef", "fitted", "residuals", "vcov", "confint")
+importFrom("raster", "raster", "extent", "extent<-", "rasterFromXYZ",
+          "getValues", "image", "addLayer",  "dropLayer", "ncell",
+          "values",  "values<-", "xyFromCell", "aggregate", "subset")
 importFrom("plotrix", "draw.circle")
 importFrom("RandomFields", "RFoptions", "RFsimulate", "RMexp")
 importFrom("sp", "bubble", "coordinates<-")
 importFrom("coda", "crosscorr")
+importFrom("mvtnorm", "dmvnorm")
 
 
-# Chapter 1
+# AHM1 Chapter 1
 export("sim.fn")
 
-# Chapter 4
+# AHM1 Chapter 4
 export("data.fn")
 
-# Chapter 6
+# AHM1 Chapter 6
 export("simNmix", "ppc.plot", "map.Nmix.resi", "simpleNmix", "playRN")
 export("plot_Nmix_resi")
 
-# Chapter 7
+# AHM1 Chapter 7
 export("fitstats", "fitstats2")
 export("crPiFun", "crPiFun.Mb", "MhPiFun", "instRemPiFun")
 
-# Chapter 8
+# AHM1 Chapter 8
 export("sim.ldata", "sim.pdata", "simHDS")
 
-# Chapter 9
+# AHM1 Chapter 9
 export("simHDSg", "simHDStr", "simHDSopen", "issj.sim", "sim.spatialDS", "sim.spatialHDS")
 #  "pcount.spHDS" # now in unmarked
+
+# AHM1 Chapter 10
+export("simOcc", "sim3Occ", "simOccttd", "wigglyOcc", "spline.prep")
+
+# AHM1 Chapter 11
+export("simComm")
+
+# AHM2 Chapter 1
+export("simNpC", "simPH", "simPOP", "graphSSM")
+
+# AHM2 Chapter 2
+export("simDM0", "simDM", "simMultMix")
+
+# AHM2 Chapter 3
+export("simCJS", "ch2marray")
+
+# AHM2 Chapter 4
+export("simDynocc", "simDemoDynocc")
+
+# AHM2 Chapter 6
+export("simDCM")
+
+# AHM2 Chapter 7
+export("valid_data", "modSelFP")
+
+# Chapter 8
+export("getLVcorrMat", "getEcorrMat")
+
+# AHM2 Chapter 9
+export("simDynoccSpatial", "simExpCorrRF")
+
+# AHM2 Chapter 10
+export("simPPe", "simDataDK", "simDataDK1")
+
+# AHM2 Chapter 11
+export("simSpatialDSline", "simSpatialDSte", "simNmixSpatial",
+    "simOccSpatial", "simDSM")
+
+# Utilities
+export("zinit")
+export("bigCrossCorr")
+export("standardize", "standardize2match")
 export("e2dist")
 export("image_scale")
 
-# Chapter 10
-export("simOcc", "sim3Occ", "simOccttd", "wigglyOcc", "spline.prep")
-
-# Chapter 11
-export("simComm")
-
-# Chapter 15
-export("simDynocc")
-
-# Chapter 17
-export("simDCM")
-
-# Chapter 20
-export("spatial.exp")
-
-export("bigCrossCorr")
-
-
+# Color ramps
+export("rampYOR", "rampGreens",  "rampGreys", "rampBYR", "rampGBr")

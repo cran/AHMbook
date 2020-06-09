@@ -5,7 +5,7 @@
 Simulate data for static occupancy models under wide range of conditions
 }
 \description{
-Function to simulate occupancy measurements replicated at M sites during J occasions. Population closure is assumed for each site. Expected occurrence may be affected by elevation (elev), forest cover (forest) and their interaction. Expected detection probability may be affected by elevation, wind speed (wind) and their interaction.
+Function to simulate static occupancy measurements replicated at M sites during J occasions. Population closure is assumed for each site. Expected occurrence may be affected by elevation (elev), forest cover (forest) and their interaction. Expected detection probability may be affected by elevation, wind speed (wind) and their interaction.
 }
 \usage{
 simOcc(M = 267, J = 3, mean.occupancy = 0.6, beta1 = -2, beta2 = 2, beta3 = 1,
@@ -51,7 +51,7 @@ Interaction effect on detection of elevation and wind speed
 standard deviation of random site effects (on logit scale)
 }
   \item{b}{
-constant value of 'behavioural response' leading to 'trap-happiness' (if b > 0) or 'trap shyness' (if b < 0)
+constant value of 'behavioral response' leading to 'trap-happiness' (if b > 0) or 'trap shyness' (if b < 0)
 }
   \item{show.plot}{
 if TRUE, plots of the data will be displayed; set to FALSE if you are running many simulations
@@ -66,9 +66,9 @@ A list with the values of the  input arguments and the following additional elem
  \item{elev }{Elevation, a vector of length M}
  \item{forest }{Forest cover, a vector of length M}
  \item{wind }{wind speed, a M x J matrix}
- \item{psi }{Probability of occurence, a vector of length M}
- \item{z }{Realised occurence (0/1), a vector of length M}
- \item{p }{probability of capture, possibly with a behavioural effect, a M x J matrix}
+ \item{psi }{Probability of occurrence, a vector of length M}
+ \item{z }{Realized occurrence (0/1), a vector of length M}
+ \item{p }{probability of capture, possibly with a behavioral effect, a M x J matrix}
  \item{p0 }{probability of capture when not captured on previous occasion, a M x J matrix}
  \item{p1 }{probability of capture when captured on previous occasion, a M x J matrix}
  \item{y }{simulated capture history, a M x J matrix}
@@ -78,11 +78,11 @@ A list with the values of the  input arguments and the following additional elem
  \item{psi.fs.obs }{Proportion of sites observed to be occupied (sumZ.obs/N)}
 }
 \references{
-Kéry & Royle (2016) \emph{Applied Hierarachical Modeling in Ecology} Section 10.8
+Kéry, M. & Royle, J.A. (2016) \emph{Applied Hierarchical Modeling in Ecology} AHM1 - 10.8.
 
 }
 \author{
-Marc Kéry
+Marc Kéry & Andy Royle
 }
 
 \examples{
@@ -91,7 +91,7 @@ tmp <- simOcc()
 str(tmp)
 
 # Simplest possible occupancy model, with constant occupancy and detection
-str(simOcc(mean.occ=0.6, beta1=0, beta2=0, beta3=0, mean.det=0.3, time.effects=c(0, 0), 
+str(simOcc(mean.occ=0.6, beta1=0, beta2=0, beta3=0, mean.det=0.3, time.effects=c(0, 0),
   alpha1=0, alpha2=0, alpha3=0, sd.lp=0, b=0))
 # psi = 1 (i.e., species occurs at every site)
 str(simOcc(mean.occ=1))
@@ -100,6 +100,7 @@ str(simOcc(mean.occ=1))
 str(simOcc(mean.det=1))
 
 # Other potentially interesting settings include these:
+\donttest{
 str(simOcc(J = 2))                 # Only 2 surveys
 str(simOcc(M = 1, J = 100))        # No spatial replicates, but 100 measurements
 str(simOcc(beta3 = 1))             # Including interaction elev-wind on p
@@ -114,4 +115,5 @@ str(simOcc(sd.lp = 10))            # Huge (random) site effects on p
 str(simOcc(J = 10, b = 0))         # No behavioural response in p
 str(simOcc(J = 10, b = 2))         # Trap happiness
 str(simOcc(J = 10, b = -2))        # Trap shyness
+}
 }

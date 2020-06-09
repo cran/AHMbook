@@ -2,14 +2,14 @@
 \alias{simOccttd}
 \encoding{UTF-8}
 \title{
-Simulate time-to-detection occupancy data
+Simulate time-to-detection occupancy data (single visits)
 }
 \description{
 Function simulates time-to-detection occupancy design data under model of Garrard et al. (2008), also see Bornand et al. (2014)
 }
 \usage{
 simOccttd(M = 250, mean.psi = 0.4, mean.lambda = 0.3,
-  beta1 = 1, alpha1 = -1, Tmax = 10, show.plot = TRUE)
+  beta1 = 1, alpha1 = -1, Tmax = 10, show.plot = TRUE, verbose = TRUE)
 }
 \arguments{
   \item{M}{
@@ -33,14 +33,17 @@ maximum search time (in arbitrary units, which are same as response), response w
   \item{show.plot}{
 choose whether to show plots or not. Set to FALSE when running  many simulations.
 }
+  \item{verbose}{
+if TRUE, output will be written to the Console.
+}
 }
 
 \value{
 A list with the values of the arguments input and the following additional elements:
  \item{covA }{Simulated values of covariate A, a vector of length M}
  \item{covB }{Simulated values of covariate B, a vector of length M}
- \item{psi }{Probability of occurence at each site, a vector of length M}
- \item{z }{Realised occurence at each site, a 0/1 vector of length M}
+ \item{psi }{Probability of occurrence at each site, a vector of length M}
+ \item{z }{Realized occurrence at each site, a 0/1 vector of length M}
  \item{ttd.temp }{Uncensored simulated time-to-detection at each site, a vector of length M}
  \item{ttd }{Censored simulated time-to-detection at each site, a vector of length M}
  \item{d }{Censoring indicator, a 0/1 vector of length M}
@@ -49,14 +52,14 @@ A list with the values of the arguments input and the following additional eleme
 
 }
 \references{
-Kéry & Royle (2016) \emph{Applied Hierarachical Modeling in Ecology} Section 10.12.1
-
 Garrard, G.E., Bekessy, S.A., McCarthy, M.A., & Wintle, B.A. (2008) When have we looked hard enough? A novel method for setting minimum survey effort protocols for flora surveys. \emph{Austral Ecology}, 33, 986-998.
 
 Bornand, C.N., Kéry, M., Bueche, L., & Fischer, M. (2014) Hide and seek in vegetation: time-to-detection is an efficient design for estimating detectability and occurrence. \emph{Methods in Ecology and Evolution}, 5, 433-442.
+
+Kéry, M. & Royle, J.A. (2016) \emph{Applied Hierarchical Modeling in Ecology} AHM1 - 10.12.1.
 }
 \author{
-Marc Kéry
+Marc Kéry & Andy Royle
 }
 
 \examples{

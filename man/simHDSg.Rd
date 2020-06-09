@@ -55,10 +55,13 @@ A list with the values of the arguments entered and the following additional ele
 \item{groupsize }{group size for each of the groups observed}
 
 }
+\author{
+Marc Kéry & Andy Royle
+}
 \references{
-Kéry & Royle (2016) \emph{Applied Hierarachical Modeling in Ecology} Section 9.2.1
+Buckland, S.T., et al (2001) \emph{Introduction to distance sampling: estimating abundance of biological populations}. Oxford University Press, Oxford, UK.
 
-Buckland et al (2001) \emph{Introduction to distance sampling: estimating abundance of biological populations}. Oxford University Press, Oxford, UK.
+Kéry, M. & Royle, J.A. (2016) \emph{Applied Hierarchical Modeling in Ecology} AHM1 - 9.2.1.
 }
 
 \examples{
