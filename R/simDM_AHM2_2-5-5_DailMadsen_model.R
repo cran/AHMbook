@@ -66,26 +66,31 @@ simDM <- function(nsites = 50, nsurveys = 3, nyears = 5,
   if(show.plots) {
     op <- par(mfrow = c(3, 2), mar = c(5,5,4,3), cex.lab = 1.5, cex.axis = 1.5)
     on.exit(par(op))
-
-    matplot(t(N), type = 'l',
-      main = paste('Population trajectories under a simple DM model \nwith mean lambda =',
-      mean.lambda, ', mean gamma =', mean.gamma.rel, ' and mean phi =', mean.phi, ''),
-      lty = 1, lwd = 3, las = 1, frame = FALSE, xlab = 'Year', ylab = 'N')
-    matplot(t(S), type = 'l', main = 'Number of apparent survivors', lty = 1, lwd = 3, las = 1,
-      frame = FALSE, xlab = 'Year', ylab = 'Survivors (S)')
-    matplot(t(R), type = 'l', main = 'Number of recruits', lty = 1, lwd = 3, las = 1,
-      frame = FALSE, xlab = 'Year', ylab = 'Recruits (R)')
-    matplot(t(apply(p, c(1,2), mean)), type = 'l',
-      main = 'Average detection probability per site and year', lty = 1, lwd = 3, las = 1,
-      frame = FALSE, xlab = 'Year', ylab = 'Average p')
-    hist(N[,1], main = 'Distribution of N in first year', breaks = 50, col = 'grey')
-    hist(N[,nyears], main = 'Distribution of N in last year', breaks = 50, col = 'grey')
+    tryPlot <- try( {
+      matplot(t(N), type = 'l',
+        main = paste('Population trajectories under a simple DM model \nwith mean lambda =',
+            mean.lambda, ', mean gamma =', mean.gamma.rel, ' and mean phi =', mean.phi, ''),
+        lty = 1, lwd = 3, las = 1, frame = FALSE, xlab = 'Year', ylab = 'N')
+      matplot(t(S), type = 'l', main = 'Number of apparent survivors', lty = 1, lwd = 3, las = 1,
+        frame = FALSE, xlab = 'Year', ylab = 'Survivors (S)')
+      matplot(t(R), type = 'l', main = 'Number of recruits', lty = 1, lwd = 3, las = 1,
+        frame = FALSE, xlab = 'Year', ylab = 'Recruits (R)')
+      matplot(t(apply(p, c(1,2), mean)), type = 'l',
+        main = 'Average detection probability per site and year', lty = 1, lwd = 3, las = 1,
+        frame = FALSE, xlab = 'Year', ylab = 'Average p')
+      hist(N[,1], main = 'Distribution of N in first year', breaks = 50, col = 'grey')
+      hist(N[,nyears], main = 'Distribution of N in last year', breaks = 50, col = 'grey')
+    }, silent = TRUE)
+    if(inherits(tryPlot, "try-error"))
+      tryPlotError(tryPlot)
   }
 
   # Output
   return(list(
     # -------------- arguments input -------------------
-    nsites = nsites, nsurveys = nsurveys, nyears = nyears, mean.lambda = mean.lambda, mean.gamma.rel = mean.gamma.rel, mean.phi = mean.phi, mean.p = mean.p, beta.lam = beta.lam, beta.gamma = beta.gamma, beta.phi = beta.phi, beta.p = beta.p,
+    nsites = nsites, nsurveys = nsurveys, nyears = nyears, mean.lambda = mean.lambda,
+    mean.gamma.rel = mean.gamma.rel, mean.phi = mean.phi, mean.p = mean.p,
+    beta.lam = beta.lam, beta.gamma = beta.gamma, beta.phi = beta.phi, beta.p = beta.p,
     # ----------- values generated -------------------------
     cov.lam = cov.lam, cov.gamma = cov.gamma, cov.phi = cov.phi,  # covariates
     cov.p = cov.p,   # covariate for p, nsites x nyears x nsurveys

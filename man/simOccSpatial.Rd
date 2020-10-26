@@ -18,6 +18,8 @@ Replicated detection/nondetection data are simulated as usual under a Bernoulli 
 \code{y[i,j] ~ Bernoulli(z[i] * p[i,j]) }
 
 Finally, we assume that only a subset of the 2500 quadrats is surveyed. Hence, we allow you to choose the number of quadrats that are surveyed and these will then be randomly placed into the landscape. We then assume that counts will only be available for these surveyed quadrats, i.e., detection/non-detection data from all non-surveyed quadrats will be replaced with NA.
+
+To recreate the data sets used in the book with R 3.6.0 or later, call \code{RNGversion="3.5.3"} before the call to \code{simOccSpatial}. This should only be used for reproduction of old results.
 }
 \usage{
 simOccSpatial(nsurveys = 3, mean.psi = 0.6, beta = c(2, -2),
@@ -53,10 +55,10 @@ parameter governing spatial correlation (=1/phi); the larger the value of theta.
 vector of length 2; random seeds used for the random field and the selection of quadrats surveyed respectively.
 }
   \item{show.plots}{
-if TRUE, plots of the data will be displayed; set to FALSE if you are running many simulations.
+if TRUE, plots of the data will be displayed; set to FALSE if you are running simulations.
 }
   \item{verbose}{
-if TRUE, output will be written to the Console.
+if TRUE, output will be written to the console.
 }
 }
 
@@ -82,14 +84,14 @@ A list with the arguments input and the following additional elements:
  \item{yobs }{detected/non-detected data for each quadrat surveyed, NA for quadrats not surveyed.}
 }
 \references{
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 9.2.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 9.2.
 
 }
 \author{
 Marc Kéry & Andy Royle
 }
 \examples{
-# Generate data with the default arguments and look at the structure:
+# Generate data with the default arguments and look at the structure
 str(dat <- simOccSpatial())
 str(dat <- simOccSpatial(show.plots=FALSE))
 \donttest{

@@ -20,7 +20,7 @@ A 1ha-scale subset of the count data from the most recent Swiss Breeding Bird At
   \item{\bold{sites }}{a data frame with rows for 2318 1ha quadrats and the following columns:
 
     \itemize{
-       \item x : the x coordinate of the center of the quadrat; the coordinate reference system intentionally not specified.
+       \item x : the x coordinate of the center of the quadrat; the coordinate reference system is intentionally not specified.
       \item y : the y coordinate of the center of the quadrat.
       \item elevation : the mean elevation of the quadrat, m.
       \item slope : the slope.
@@ -39,7 +39,7 @@ Swiss Ornithological Institute
 \references{
 Knaus, P., S. Antoniazza, S. Wechsler, J. Guélat, M. Kéry, N. Strebel, & T. Sattler (2018) Brutvogelatlas 2013–2016. Bestandsentwicklung der Brutvögel der Schweiz und des Fürstentums Liechtensteins (Swiss Breeding Bird Atlas 2013–2016). Schweizerische Vogelwarte, Sempach.
 
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 8.4.2.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 8.4.2.
 }
 \examples{
 data(SwissAtlasHa)

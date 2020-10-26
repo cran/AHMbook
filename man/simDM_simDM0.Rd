@@ -7,7 +7,7 @@
 Simulate count data under the dynamic N-mixture model of Dail-Madsen
 }
 \description{
-Simulation for multiple-visit data (from pcountOpen help file). \code{simDM0} has no covariates while \code{simDM} allows for covariates. Both functions assume constant time intervals between primary periods.
+Simulation for multiple-visit data (from \code{\link[unmarked]{pcountOpen}} help file in package \pkg{unmarked}). \code{simDM0} has no covariates while \code{simDM} allows for covariates. Both functions assume constant time intervals between primary periods.
 }
 \usage{
 simDM0(nsites = 50, nsurveys = 3, nyears = 5,
@@ -67,7 +67,7 @@ the slope of parameter phi (link transformed) on the cov.phi covariate
 the slope of parameter p (link transformed) on the cov.p covariate
 }
   \item{show.plots}{
-if TRUE, plots are produced. Set this to FALSE when running many simulations.
+if TRUE, plots are produced. Set this to FALSE when running simulations.
 }
 }
 
@@ -89,7 +89,7 @@ For \code{simDM0}, a list with the values of the input arguments and the followi
 \references{
 Dail, D. & Madsen, L. (2011) Models for estimating abundance from repeated counts of an open metapopulation. \emph{Biometrics}, 67, 577-587.
 
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 2.5.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 2.5.
 }
 \author{
 Marc Kéry & Andy Royle, based in part on code written by Richard Chandler.

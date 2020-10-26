@@ -29,7 +29,7 @@ simDynoccSpatial(side = 50, nyears = 10, nsurveys = 3,
       range.p = c(0.4, 0.4), beta.Xp = 0,
       theta.XAC = 5000, beta.XAC = c(0, 0, 0, 0), beta.Xautolog = c(0, 0),
       trend.sd.site = c(0, 0), trend.sd.survey = c(0, 0),
-      seed.XAC = NA, seed = NULL, ask.plot = TRUE, verbose = TRUE)
+      seed.XAC = NA, seed = NULL, show.plots = TRUE, ask.plot = TRUE, verbose = TRUE)
 }
 \arguments{
   \item{side}{
@@ -86,11 +86,14 @@ the seed to be used for simulation of the spatially structured covariate for hab
   \item{seed}{
 the seed to be used for simulation of values apart from the spatially structured covariate for habitat suitability; using the same value for seed.XAC with different values for seed allows generation of different data sets with the same habitat suitability covariate.
 }
+  \item{show.plots}{
+if TRUE, summary plots are displayed.
+}
   \item{ask.plot}{
-If TRUE, pause between plots of results; set to FALSE if running many simulations.
+If TRUE, pause between plots of results; set to FALSE if running simulations.
 }
   \item{verbose}{
-if TRUE, output will be written to the Console.
+if TRUE, output will be written to the console.
 }
 }
 
@@ -125,7 +128,7 @@ A list with the values of the arguments input and the following additional eleme
    \item{umf }{an unmarked data frame object with the simulated data}
 }
 \references{
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 9.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 9.
 
 }
 \author{
@@ -133,11 +136,11 @@ Marc Kéry & Andy Royle
 }
 
 \examples{
-# Generate data with the default arguments and look at the structure:
+# Generate data with the default arguments and look at the structure
 tmp <- simDynoccSpatial()
 str(tmp)
 
-\donttest{  # rather slow
+\donttest{# rather slow
 # Large grid, seed.XAC = 88 gives a cool pattern
 str(tmp <- simDynoccSpatial(side = 100, seed.XAC = 88))
 

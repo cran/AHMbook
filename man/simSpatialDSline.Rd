@@ -11,7 +11,8 @@ This simulates line transect distance sampling data with a spatial distribution 
 To recreate the data sets used in the book with R 3.6.0 or later, include \code{sample.kind="Rounding"} in the call to \code{set.seed}. This should only be used for reproduction of old results.
 }
 \usage{
-simSpatialDSline(N=1000, beta = 1, sigma=0.25, alpha0 = -2, W=1/2, L = 4, perp=FALSE)
+simSpatialDSline(N=1000, beta = 1, sigma=0.25, alpha0 = -2, W=1/2, L = 4,
+    perp=FALSE, show.plots=TRUE)
 }
 
 \arguments{
@@ -36,6 +37,9 @@ length of the transect.
   \item{perp}{
 if TRUE, data are simulated for a traditional distance sampling model with perpendicular distances; if FALSE (the default) a model with 'forward distance' data, ie, the distance from the observer to the animal on first detection.
 }
+  \item{show.plots}{
+if TRUE, summary plots are displayed.
+}
 }
 
 \value{
@@ -56,7 +60,7 @@ and if \code{perp = FALSE} we have
 }
 \references{
 
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 11.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 11.
 }
 \author{
 Marc Kéry & Andy Royle

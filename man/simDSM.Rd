@@ -12,7 +12,7 @@ To recreate the data sets used in the book with R 3.6.0 or later, include \code{
 }
 \usage{
 simDSM(X, Ntotal = 400, sigma = 0.65, beta1 = 1.0,
-    nsurveys = 2, xlim = c(-0.5, 3.5), ylim = c(-0.5, 4.5), show.plot = TRUE)
+    nsurveys = 2, xlim = c(-0.5, 3.5), ylim = c(-0.5, 4.5), show.plots = TRUE)
 }
 
 \arguments{
@@ -34,7 +34,7 @@ the number of replicate surveys along the transect.
   \item{xlim, ylim}{
 the extent of the (rectangular) study area
 }
-  \item{show.plot}{
+  \item{show.plots}{
 if TRUE, summary plots are displayed.
 }
 }
@@ -45,12 +45,13 @@ A list with the values of the input arguments and the following additional eleme
  \item{Habgrid }{a 2-column matrix with the coordinates of center of each pixel}
  \item{nPix }{the number of pixels in the study area}
  \item{N }{true number of activity centers in each pixel}
- \item{U }{a 2-column matrix with the locations of each activity center}
+ \item{U }{a 2-column matrix with the locations of ACs for all individuals in the population}
+ \item{Ucap }{a 2-column matrix with the locations of ACs for individuals detected at least once}
  \item{nind }{the number of individuals detected at least once}
  \item{pixel }{a nind x nsurvey matrix with the pixel ID for the activity center or NA if the individual was not detected on the survey}
 }
 \references{
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 11.10.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 11.10.
 }
 \author{
 Marc Kéry, Andy Royle & Mike Meredith
@@ -66,7 +67,7 @@ regpoints <- sp::spsample(sLine, 100, type = "regular")
 str(simDSM(X = regpoints@coords))
 
 # Generate the data set used in AHM2 11.10
-# RNGkind(sample.kind = "Rounding") # run this for R >= 3.6.0
+RNGversion("3.5.3")
 set.seed(2027, kind = "Mersenne-Twister")
 tmp <- simDSM(X = regpoints@coords) # Produces Fig 11.15 in the book
 }

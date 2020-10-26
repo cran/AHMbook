@@ -18,6 +18,8 @@ Replicated counts are simulated as usual under a binomial observation model, and
 \code{C[i,j] ~ Binomial(N[i], p[i,j]) }
 
 Finally, we assume that only a subset of the 2500 quadrats is surveyed. Hence, we allow you to choose the number of quadrats that are surveyed and these will then be randomly placed into the landscape. We then assume that counts will only be available for these surveyed quadrats, i.e., counts from all non-surveyed quadrats will be NA.
+
+To recreate the data sets used in the book with R 3.6.0 or later, call \code{RNGversion="3.5.3"} before the call to \code{simNmixSpatial}. This should only be used for reproduction of old results.
 }
 \usage{
 simNmixSpatial(nsurveys = 3, mean.lambda = exp(2), beta = c(2, -2),
@@ -56,10 +58,10 @@ vector of length 2; random seeds used for the random field and the selection of 
 used to limit the range of values of N displayed in some plots.
 }
   \item{show.plots}{
- if TRUE, plots of the data will be displayed; set to FALSE if you are running many simulations.
+ if TRUE, plots of the data will be displayed; set to FALSE if you are running simulations.
 }
   \item{verbose}{
-if TRUE, output will be written to the Console.
+if TRUE, output will be written to the console.
 }
 }
 
@@ -82,7 +84,7 @@ A list with the arguments input and the following additional elements:
  \item{yobs }{number of individuals detected in each quadrat surveyed, NA for quadrats not surveyed.}
 }
 \references{
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 11.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 11.
 
 }
 \author{

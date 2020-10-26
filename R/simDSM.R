@@ -12,7 +12,7 @@
 # xlim, ylim : the extent of the (rectangular) study area
 
 simDSM <- function(X, Ntotal = 400, sigma = 0.65, beta1 = 1.0,
-    nsurveys = 2, xlim = c(-0.5, 3.5), ylim = c(-0.5, 4.5), show.plot = TRUE) {
+    nsurveys = 2, xlim = c(-0.5, 3.5), ylim = c(-0.5, 4.5), show.plots = TRUE) {
 
   # Create coordinates rasterized transect
   delta <- 0.2               # 2D bin width
@@ -65,18 +65,22 @@ simDSM <- function(X, Ntotal = 400, sigma = 0.65, beta1 = 1.0,
   # End of data preparation
 
   # Plot with activity centers and linking lines # Fig. 11-15
-  if(show.plot) {
+  if(show.plots) {
     oldpar <- par(mar = c(3,3,3,6)); on.exit(par(oldpar))
-    image(r <- rasterFromXYZ(cbind(gr,x)), col = topo.colors(10))
-    image_scale(x, col = topo.colors(10))
-    lines(X, col = "black", pch = 20, lwd = 3)
-    points(sx, sy, pch = 16, col = "black", lwd=1 )
-    # plot observed locations (i.e. detected individuals)
-    points(Ucap, pch = 20, col = "red")
-    # Add lines from detected ACs to nearest point on transect
-    dd <- e2dist(X, Ucap)
-    closest <- X[apply(dd, 2, which.min), ]
-    segments(x0=Ucap[,1], y0=Ucap[,2], x1=closest[,1], y1=closest[,2])
+    tryPlot <- try( {
+      image(r <- rasterFromXYZ(cbind(gr,x)), col = topo.colors(10))
+      image_scale(x, col = topo.colors(10))
+      lines(X, col = "black", pch = 20, lwd = 3)
+      points(sx, sy, pch = 16, col = "black", lwd=1 )
+      # plot observed locations (i.e. detected individuals)
+      points(Ucap, pch = 20, col = "red")
+      # Add lines from detected ACs to nearest point on transect
+      dd <- e2dist(X, Ucap)
+      closest <- X[apply(dd, 2, which.min), ]
+      segments(x0=Ucap[,1], y0=Ucap[,2], x1=closest[,1], y1=closest[,2])
+    }, silent = TRUE)
+    if(inherits(tryPlot, "try-error"))
+      tryPlotError(tryPlot)
   }
 
   return(list(
@@ -87,11 +91,12 @@ simDSM <- function(X, Ntotal = 400, sigma = 0.65, beta1 = 1.0,
     Habgrid=gr,           # a 2-column matrix with the coordinates of each pixel
     nPix=nPix,            # the number of pixels in the study area
     N = N,                # true number of individuals per pixel
-    U = U,                # locations of each individual
+    U = U,                # locations of each individual in the population
+    Ucap = Ucap,          # locations of each individual detected at least once
     nind=nind,            # the number of individuals detected at least once
     pixel=pixel)          # a matrix with a column for each survey and a row
         # for each individual detected at least once, with the pixel ID for the
-        # activity centre or NA is the individual was not detected on the survey
+        # activity centre or NA if the individual was not detected on the survey
   )
 }
 

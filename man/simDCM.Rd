@@ -105,10 +105,10 @@ sd of normal distribution to model logit-normal noise in p at the site level in 
 sd of normal distribution to model logit-normal noise in p at the occasion level, in the first and the last year, with values for intermediate years interpolated linearly.
 }
   \item{show.plot}{
-if TRUE, plots are produced. Set this to FALSE when running many simulations.
+if TRUE, plots are produced. Set this to FALSE when running simulations.
 }
   \item{verbose}{
-if TRUE, output will be written to the Console.
+if TRUE, output will be written to the console.
 }
 }
 
@@ -156,7 +156,7 @@ A list with the values of the input arguments and the following additional eleme
  \item{y }{Observed detection history, a nsites x nsurveys x nyears x nspecies array of 0/1}
 }
 \references{
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 5.2.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 5.2.
 }
 \author{
 Marc Kéry & Andy Royle

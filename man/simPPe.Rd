@@ -16,7 +16,7 @@ To recreate the data sets used in the book with R 3.6.0 or later, include \code{
 }
 \usage{
 simPPe(lscape.size = 150, buffer.width = 25, variance.X = 1, theta.X = 10,
-  M = 250, beta = 1, quads.along.side = 6)
+  M = 250, beta = 1, quads.along.side = 6, show.plots = TRUE)
 }
 
 \arguments{
@@ -40,6 +40,9 @@ coefficient of the habitat covariate.
 }
   \item{quads.along.side}{
 number of quadrats along the side of the core area; the total number of quadrats will be quads.along.side^2, thus indirectly defining the quadrat area.
+}
+  \item{show.plots}{
+if TRUE, summary plots are displayed.
 }
 }
 
@@ -66,7 +69,7 @@ A list with the values of the input arguments and the following additional eleme
  \item{E_z }{average realized occupancy per quadrat}
 }
 \references{
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 10.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 10.
 }
 \author{
 Marc Kéry & Andy Royle.

@@ -6,7 +6,7 @@
 Data for Eurasian lynx from Switzerland and Italy (only Alps).
 }
 \description{
-The data are observations of Eurasian lynx (\emph{Lynx lynx}) confirmed by experts and by the general public (and not confirmed by experts), summarized to 10 x 10 km grid and for 3 occasions during a 'winter' (Nov-Dec, Jan-Feb, Mar-Apr). The observations are classified as 'certain' or 'uncertain', and only the latter are assumed to be contaminated with false positives (but both are subject to false-negative errors). This data set covers the Alps in Switzerland and Italy from 1994 to 2016.
+The data are observations of Eurasian lynx (\emph{Lynx lynx}) confirmed by experts and by the general public (and not confirmed by experts), summarized to a 10 x 10 km grid and for 3 occasions during a 'winter' (Nov-Dec, Jan-Feb, Mar-Apr). The observations are classified as 'certain' or 'uncertain', and only the latter are assumed to be contaminated with false positives (but both are subject to false-negative errors). This data set covers the Alps in Switzerland and Italy from 1994 to 2016.
 }
 
 \usage{data("EurasianLynx")}
@@ -31,7 +31,7 @@ The Foundation KORA (SCALP Project) and the Progetto Lince Italia (Anja Molinari
 \references{
 Molinari-Jobin, A., Kéry, M., Marboutin, E., Molinari, P., Koren, I., Fuxjäger, C., Breitenmoser-Würsten, C., Wölfl, S., Fasel, M., Kos, I., Wölfl, M., & Breitenmoser, U. (2012) Monitoring in the presence of species misidentification: the case of the Eurasian lynx in the Alps. \emph{Animal Conservation}, 15, 266-273.
 
-Kéry, M. & Royle, J.A. (2020) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 7.3.2 and 9.6.1.3.
+Kéry, M. & Royle, J.A. (2021) \emph{Applied Hierarchical Modeling in Ecology} AHM2 - 7.3.2 and 9.6.1.3.
 }
 \examples{
 data(EurasianLynx)
