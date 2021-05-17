@@ -1,3 +1,20 @@
+
+CHANGES in 0.2.3 (2021-05-16)
+
+  * Fixed: "data length differs..." warning in zinit.Rd Examples (thanks to Prof Ripley's report).
+
+  * The stop-gap function `modSelFP` is deprecated, as `unmarked::modSel` now works for FP models.
+
+  * Updated URL for `SwissMarbledWhite` data set.
+
+  * Minor corrections to help files.
+
+  * Additional information added to the Descriptions of `simHDS*` functions.
+
+CHANGES in 0.2.2 (2020-10-26)
+
+  * Removed insecure URL.
+
 CHANGES in 0.2.1 (2020-10-24)
 
   * Changed publication date of AHM2 to 2021 everywhere in help files.

@@ -2,8 +2,8 @@ Package: AHMbook
 Type: Package
 Title: Functions and Data for the Book 'Applied Hierarchical Modeling
         in Ecology' Vols 1 and 2
-Version: 0.2.2
-Date: 2021-10-26
+Version: 0.2.3
+Date: 2021-05-16
 Depends: R (>= 2.10)
 Imports: grDevices, graphics, methods, stats, utils, plotrix, raster,
         sp, RandomFields, coda, unmarked (>= 0.12.2), mvtnorm, spdep
@@ -48,14 +48,14 @@ Authors@R: c(
   person("Swiss Ornithological Institute", role="dtc", comment="<https://www.vogelwarte.ch>"),
   person("UK Butterfly Monitoring Scheme (UKBMS)", role=c("dtc", "cph"), comment="UKmarbledWhite, <https://www.ceh.ac.uk/our-science/projects/uk-butterfly-monitoring-scheme>"))
 BugReports: https://github.com/mikemeredith/AHMbook/issues
-Description: Provides functions and data sets to accompany the two volume publication 'Applied Hierarchical Modeling in Ecology: Analysis of distribution, abundance and species richness in R and BUGS' by Marc Kéry and Andy Royle: volume 1 (2016, ISBN: 978-0-12-801378-6) and volume 2 (2021, ISBN: 978-0-12-809585-0), <https://www.mbr-pwrc.usgs.gov/pubanalysis/keryroylebook>.
+Description: Provides functions and data sets to accompany the two volume publication 'Applied Hierarchical Modeling in Ecology: Analysis of distribution, abundance and species richness in R and BUGS' by Marc Kéry and Andy Royle: volume 1 (2016, ISBN: 978-0-12-801378-6) and volume 2 (2021, ISBN: 978-0-12-809585-0), <https://www.mbr-pwrc.usgs.gov/pubanalysis/keryroylebook/>.
 License: GPL (>= 3)
 Copyright: file COPYRIGHTS
 NeedsCompilation: no
 URL: https://sites.google.com/site/appliedhierarchicalmodeling/home
 Encoding: UTF-8
 Language: en-US
-Packaged: 2020-10-26 07:58:05 UTC; User
+Packaged: 2021-05-16 05:38:35 UTC; User
 Author: Marc Kéry [aut],
   Andy Royle [aut],
   Mike Meredith [aut, cre],
@@ -106,4 +106,4 @@ Author: Marc Kéry [aut],
     <https://www.ceh.ac.uk/our-science/projects/uk-butterfly-monitoring-scheme>)
 Maintainer: Mike Meredith <mike@mmeredith.net>
 Repository: CRAN
-Date/Publication: 2020-10-26 08:50:05 UTC
+Date/Publication: 2021-05-17 05:00:09 UTC
