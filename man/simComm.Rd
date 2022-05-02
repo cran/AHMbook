@@ -85,7 +85,7 @@ Specifically, the data are simulated under the following linear models:
 \code{lambda[i,k] <- exp(beta0[k] + beta1[k] * habitat[i]} \tab E(N) \cr
 \code{p[i,j,k] <- plogis(alpha0[k] + alpha1[k] * wind[i,j]} \tab Detection }
 
-Species-specific heterogeneity in intercepts and slopes is modelled by up to four independent normal distributions (note: no correlation between the intercepts as in Dorazio et al. (2006) or Kéry & Royle (2008))
+Species-specific heterogeneity in intercepts and slopes is modeled by up to four independent normal distributions (note: no correlation between the intercepts as in Dorazio et al. (2006) or Kéry & Royle (2008))
 
 \bold{(1) for \code{type = "det/nondet"} (i.e., community occupancy)}
 \tabular{ll}{
@@ -107,6 +107,8 @@ A list with the arguments supplied and the following additional elements:
 
 \bold{(1) for \code{type = "det/nondet"} (i.e., community occupancy)}
 
+  \item{habitat}{length \code{nsites} vector with the habitat covariate}
+  \item{wind}{\code{nsites * nreps} matrix with the wind covariate}
   \item{psi}{\code{psi[i, k]} occupancy probability for site i and species k}
   \item{p}{\code{p[i, j, k]} detection probability for site i, occasion j and species k}
   \item{z}{\code{z[i, k]} true presence/absence for site i and species k}
@@ -122,6 +124,8 @@ A list with the arguments supplied and the following additional elements:
 
 \bold{(2) for \code{type = "counts"} (i.e., community count)}
 
+  \item{habitat}{length \code{nsites} vector with the habitat covariate}
+  \item{wind}{\code{nsites * nreps} matrix with the wind covariate}
   \item{lambda}{\code{lambda[i, k]} expected number of individuals for site i and species k}
   \item{p}{\code{p[i, j, k]} detection probability for site i, occasion j and species k}
   \item{N}{\code{N[i, k]} true number present for site i and species k}
@@ -137,7 +141,7 @@ Dorazio, R.M. & Royle, J.A. (2005) Estimating size and composition of biological
 
 Dorazio, R.M., et al (2006) Estimating species richness and accumulation by modeling species occurrence and detectability. \emph{Ecology} 87, 842-854.
 
-Kéry, M. & Royle, J.A. (2008) Hierarchical Bayes estimation of species richness and occupancy in spatialy replicated surveys. \emph{J. Appl. Ecol.} 45, 589-598.
+Kéry, M. & Royle, J.A. (2008) Hierarchical Bayes estimation of species richness and occupancy in spatially replicated surveys. \emph{Journal of Applied Ecology} 45, 589-598.
 
 Yamaura, Y., et al. (2012) Biodiversity of man-made open habitats in an underused country: a class of multispecies abundance models for count data. \emph{Biodiversity and Conservation} 21, 1365-1380.
 

@@ -1,4 +1,18 @@
 
+CHANGES in 0.2.4 (2022-04-20)
+
+  * New functions added: `simOccCat`, `simIDS`, `simHDSpoint` (an enhanced version of `simHDS(type="point",...)`).
+
+  * Description and contents (in AHMbook-package.Rd) modified to allow inclusion of simulation functions not in the books.
+
+  * Fixed: warnings when no animals detected in `simOcc` and `simOccCat` are now meaningful.
+
+  * Fixed: `simComm` now includes the simulated covariates `habitat` and `wind` in the output.
+
+  * Fixed: `pi` replaced with `utils::pi` where appropriate.
+
+  * The stop-gap function `modSelFP` has been removed, as `unmarked::modSel` now works for FP models.
+
 CHANGES in 0.2.3 (2021-05-16)
 
   * Fixed: "data length differs..." warning in zinit.Rd Examples (thanks to Prof Ripley's report).
