@@ -14,7 +14,9 @@ The data analyzed in Kéry & Royle (2021) section 9.6.1.2 was generated using \c
 \details{
 The data set was generated on a machine with \pkg{RandomFields} installed, using the following code:
 
-\code{simDynoccSpatialData <- simDynoccSpatial(side = 30, nyears = 10, nsurveys = 3, mean.psi1 = 0.1,
+\code{
+  source(system.file("RandomFieldsSupport", "simDynoccSpatial.R", package="AHMbook"))
+  simDynoccSpatialData <- simDynoccSpatial(side = 30, nyears = 10, nsurveys = 3, mean.psi1 = 0.1,
   range.phi = c(0.5, 0.5), range.gamma = c(0.2, 0.2), range.p = c(0.4, 0.4),
   beta.Xautolog = c(1, 1), seed.XAC = 1, seed = 24, ask.plot = TRUE)}
 }

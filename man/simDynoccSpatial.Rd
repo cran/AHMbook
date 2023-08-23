@@ -21,7 +21,7 @@ Function to simulate detection/nondetection data under a general dynamic site-oc
 
 * Additional detection heterogeneity can be introduced at the site- or the individual survey level, with the possibility of a temporal trend in this heterogeneity. For instance, an annual trend in detection heterogeneity at the site or the survey level is specified by the value in the first and the last year. Hence, trend.sd.site = c(0, 1) will result in a linear trend in the magnitude of site heterogeneity in detection from 0 in the first year to 1 in the last year.
 
-Previous versions used \pkg{RandomFields}, but that is not currently available on CRAN. If not available, \pkg{fields} will be used, but it cannot deal with large values of \code{side} and \code{theta.XAC}.
+Previous versions used \pkg{RandomFields}, but that is not currently available on CRAN. \pkg{fields} is now used instead, but it cannot deal with large values of \code{side} and \code{theta.XAC}. If you have \pkg{RandomFields} installed (perhaps by getting it from the CRAN archive), you can load a version of \code{simDynoccSpatial} that supports it with \code{source(system.file("RandomFieldsSupport", "simDynoccSpatial.R", package="AHMbook"))}.
 
 See also \code{\link{simDynoccSpatialData}}.
 }

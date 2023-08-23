@@ -153,14 +153,14 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
   # Create values of 1 spatially autocorrelated covariate XAC
   # Generate correlated random variables in a square
   
-  #if(requireNamespace("RandomFields", quietly=TRUE)) {
-  #  RandomFields::RFoptions(seed=seed.XAC)     # Default NA; 88 gives cool pattern
-  #  XAC <- matrix(RandomFields::RFsimulate(RandomFields::RMexp(var = 1, scale = theta.XAC),
-  #      x=xcoord, y=ycoord, grid=TRUE)@data$variable1,
-  #      ncol = side, byrow = TRUE)  # variance 1
-  #  if(!is.na(seed.XAC))
-  #    RandomFields::RFoptions(seed=NA)
-  #} else {
+  if(requireNamespace("RandomFields", quietly=TRUE)) {
+    RandomFields::RFoptions(seed=seed.XAC)     # Default NA; 88 gives cool pattern
+    XAC <- matrix(RandomFields::RFsimulate(RandomFields::RMexp(var = 1, scale = theta.XAC),
+        x=xcoord, y=ycoord, grid=TRUE)@data$variable1,
+        ncol = side, byrow = TRUE)  # variance 1
+    if(!is.na(seed.XAC))
+      RandomFields::RFoptions(seed=NA)
+  } else {
     message("Using package 'fields' instead of 'RandomFields'; see help(simDynoccSpatial).")
     if(!is.na(seed.XAC))
       set.seed(seed.XAC)
@@ -169,7 +169,7 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
     if(inherits(tmp, "try-error"))
       stop("Simulation of random field failed.\nTry with smaller values for 'side' or 'theta.XAC'.")
     XAC <- matrix(tmp, ncol = side, byrow = TRUE)
-  #}
+  }
  
   set.seed(seed=seed)  # Default NULL; do this AFTER RFsimulate
 
@@ -412,43 +412,3 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
 
   return(out)
 } # ------------------------------------------------------------------
-
-# Helper function that turns the simulated data into an unmarked data frame
-conv2UM <- function(d){
-# Function creates an unmarked data frame for model-fitting function colext
-#   (= dynamic occupancy model) using output of the data simulation function.
-#
-# The function works for up to 9999 years = 'seasons' or 'primary periods'.
-#
-# Marc Kery, 12 Dec 2014; mangled by Mike Meredith, 17 May 2019
-#
-# Function arguments:
-# d: output object of the data sim function
-
-# Row names to be used for everything:
-names <- paste(d$grid[,1], d$grid[,2], sep = '.')
-
-yy <- matrix(d$y, d$M, d$nsurveys * d$nyears)
-Xp <- matrix(d$Xp, d$M, d$nsurveys * d$nyears)
-rownames(yy) <- rownames(Xp) <- names
-
-siteCovs <- data.frame(Xpsi1 = c(d$Xpsi1), XAC = c(d$XAC))
-rownames(siteCovs) <- names
-
-if(d$nyears < 100) {
-  yrChar <- sprintf("%02i", 1:d$nyears)
-} else {
-  yrChar <- sprintf("%04i", 1:d$nyears)
-}
-
-yearlySiteCovs <- list(
-    year = matrix(yrChar, d$M, d$nyears, byrow=TRUE, dimnames=list(names, NULL)),
-    Xphi = matrix(d$Xphi, d$M, d$nyears, dimnames=list(names, NULL)),
-    Xgamma = matrix(d$Xgamma, d$M, d$nyears, dimnames=list(names, NULL)),
-    Xauto = matrix(d$Xauto, d$M, d$nyears, dimnames=list(names, NULL)),
-    Xautoobs = matrix(d$Xautoobs, d$M, d$nyears, dimnames=list(names, NULL)) )
-
-# Create and return unmarked data frame for the colext function
-return(unmarked::unmarkedMultFrame(y=yy, siteCovs=siteCovs, yearlySiteCovs=yearlySiteCovs,
-  obsCovs = list(Xp = Xp), numPrimary = d$nyears))
-} # --------------------------------------

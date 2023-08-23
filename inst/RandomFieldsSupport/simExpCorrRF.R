@@ -8,7 +8,6 @@
 # In DESCRIPTION file:
 # - add 'fields' to Imports
 # - move RandomFields from Imports to Suggests
-# - 8-21-2023: RandomFields completely removed as it does not seem to be coming back to CRAN
 
 # In NAMESPACE file:
 # - comment out or delete importFrom("RandomFields", "RFoptions", "RFsimulate", "RMexp")
@@ -37,13 +36,12 @@ y <- seq(1, size, step)
 # grid <- as.matrix(expand.grid(x,y))
 grid <- cbind(x = rep(x, each=size), y = y)
 
-# RandomFields now completely removed from package
-#if(requireNamespace("RandomFields", quietly=TRUE)) {
-#  RandomFields::RFoptions(seed=seed)
-#  field <- RandomFields::RFsimulate(RandomFields::RMexp(var = variance, scale = theta),
-#      x=x, y=y, grid=TRUE)@data$variable1
-#  RandomFields::RFoptions(seed=NA)
-#} else {
+if(requireNamespace("RandomFields", quietly=TRUE)) {
+  RandomFields::RFoptions(seed=seed)
+  field <- RandomFields::RFsimulate(RandomFields::RMexp(var = variance, scale = theta),
+      x=x, y=y, grid=TRUE)@data$variable1
+  RandomFields::RFoptions(seed=NA)
+} else {
  message("Using package 'fields' instead of 'RandomFields'; see help(simExpCorrRF).")
   if(!is.na(seed))
     set.seed(seed)  # Only for compatibility with RandomFields, better to set seed before calling simExpCommRF
@@ -52,7 +50,7 @@ grid <- cbind(x = rep(x, each=size), y = y)
   if(inherits(tmp, "try-error"))
     stop("Simulation of random field failed.\nTry with smaller values for 'size' or 'theta'.")
   field <- as.vector(tmp * sqrt(variance))
-#}
+}
 
 # Plots
 # Correlation function

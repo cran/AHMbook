@@ -137,6 +137,6 @@ str(dat <- simOccSpatial(variance.RF = 0))
 str(dat <- simOccSpatial(theta.RF = 0.0001))
 
 # Larger value of theta.RF gives larger 'islands'
-try(str(dat <- simOccSpatial(theta.RF = 100)))  # Works with RandomFields
+#try(str(dat <- simOccSpatial(theta.RF = 100)))  # Works with RandomFields
 }
 }

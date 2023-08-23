@@ -137,7 +137,7 @@ str(dat<- simNmixSpatial(variance.RF = 0))
 str(dat<- simNmixSpatial(theta.RF = 0.0001))
 
 # Larger value of theta.RF gives larger 'islands'
-try(str(dat<- simNmixSpatial(theta.RF = 100))) # works with RandomFields
+#try(str(dat<- simNmixSpatial(theta.RF = 100))) # works with RandomFields
 
 # Truncate abundance in final plots to presence/absence
 str(dat<- simNmixSpatial(truncN = 0.5))

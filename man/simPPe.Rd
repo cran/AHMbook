@@ -14,7 +14,7 @@ The intensity of STATIC points (e.g. animal activity centers) may be inhomogeneo
 
 To recreate the data sets used in the book with R 3.6.0 or later, include \code{sample.kind="Rounding"} in the call to \code{set.seed}. This should only be used for reproduction of old results.
 
-Previous versions used \pkg{RandomFields}, but that is not currently available on CRAN. If not available, \pkg{fields} will be used, but it cannot deal with large values of \code{lscape.size} and \code{theta.X}.
+Previous versions used \pkg{RandomFields}, but that is not currently available on CRAN. \pkg{fields} is now used, but it cannot deal with large values of \code{lscape.size} and \code{theta.X}. If you have \pkg{RandomFields} installed (perhaps by getting it from the CRAN archive), you can load a version of \code{simPPe} that supports it with \code{source(system.file("RandomFieldsSupport", "simPPe.R", package="AHMbook"))}.
 
 }
 \usage{
@@ -82,8 +82,9 @@ Marc Kéry & Andy Royle.
 # Nice plot (produces the really nice Fig. 10-2 in the book)
 # RNGkind(sample.kind = "Rounding") # run this for R >= 3.6.0
 set.seed(117, kind="Mersenne-Twister")
-try(str(dat <- simPPe(lscape.size = 200, buffer.width = 25, variance.X = 1,
-  theta.X = 70, M = 200, beta = 1, quads.along.side = 6)))  # Fails if RandomFields is not available
+# Fails if RandomFields is not available
+#try(str(dat <- simPPe(lscape.size = 200, buffer.width = 25, variance.X = 1,
+#  theta.X = 70, M = 200, beta = 1, quads.along.side = 6)))
 
 str(dat <- simPPe(lscape.size = 200, buffer.width = 20, variance.X = 1,
   theta.X = 5, M = 250, beta = 1, quads.along.side = 6))
