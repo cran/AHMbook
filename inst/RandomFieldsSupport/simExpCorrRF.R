@@ -29,6 +29,9 @@ simExpCorrRF <- function(variance = 1, theta = 1, size = 50, seed = NA, show.plo
 # show.plot: if TRUE, plots of the data will be displayed;
 #  set to FALSE if you are running simulations or use inside of other fct's.
 
+checkNamespace("raster")
+checkNamespace("fields")
+
 # Generate correlated random variables in a square
 step <- 1
 x <- seq(1, size, step)
@@ -45,8 +48,8 @@ if(requireNamespace("RandomFields", quietly=TRUE)) {
  message("Using package 'fields' instead of 'RandomFields'; see help(simExpCorrRF).")
   if(!is.na(seed))
     set.seed(seed)  # Only for compatibility with RandomFields, better to set seed before calling simExpCommRF
-  obj <- circulantEmbeddingSetup(grid=list(x=x, y=y), Covariance="Exponential", aRange=theta)
-  tmp <- try(circulantEmbedding(obj), silent=TRUE)
+  obj <- fields::circulantEmbeddingSetup(grid=list(x=x, y=y), Covariance="Exponential", aRange=theta)
+  tmp <- try(fields::circulantEmbedding(obj), silent=TRUE)
   if(inherits(tmp, "try-error"))
     stop("Simulation of random field failed.\nTry with smaller values for 'size' or 'theta'.")
   field <- as.vector(tmp * sqrt(variance))
@@ -65,7 +68,7 @@ if(show.plots){
     # Random field
     # image(x, y, field,col=topo.colors(20), main = paste("Gaussian random field with \n negative exponential correlation (theta =", theta, ")"), cex.main = 1)
     par(mar = c(3,2,5,1))
-    raster::plot(rasterFromXYZ(cbind(grid, field)), col=topo.colors(20),
+    raster::plot(raster::rasterFromXYZ(cbind(grid, field)), col=topo.colors(20),
     main = paste("Gaussian random field with \n negative exponential correlation (theta =", theta, ")"), cex.main = 1, legend=FALSE, box=FALSE)
     box()
   }, silent = TRUE)

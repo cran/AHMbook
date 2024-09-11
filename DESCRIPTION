@@ -2,11 +2,12 @@ Package: AHMbook
 Type: Package
 Title: Functions and Data for the Book 'Applied Hierarchical Modeling
         in Ecology' Vols 1 and 2
-Version: 0.2.9
-Date: 2023-08-21
+Version: 0.2.10
+Date: 2024-09-11
 Depends: R (>= 2.10)
-Imports: grDevices, graphics, methods, stats, utils, plotrix, raster,
-        sp, fields, coda, unmarked (>= 0.12.2), mvtnorm, spdep
+Imports: grDevices, graphics, methods, stats, utils, unmarked (>=
+        0.12.2), mvtnorm
+Suggests: coda, fields, raster, sp, spdep
 Authors@R: c(
   person("Marc", "Kéry", role="aut"),
   person("Andy", "Royle", role="aut"),
@@ -52,11 +53,11 @@ Description: Provides functions to simulate data sets from hierarchical ecologic
 License: GPL (>= 3)
 Copyright: file COPYRIGHTS
 NeedsCompilation: no
-URL: https://sites.google.com/site/appliedhierarchicalmodeling/home
-BugReports: https://github.com/kenkellner/AHMbook/issues
+URL: https://www.mbr-pwrc.usgs.gov/pubanalysis/keryroylebook/
+BugReports: https://github.com/hmecology/AHMbook/issues
 Encoding: UTF-8
 Language: en-US
-Packaged: 2023-08-21 15:38:38 UTC; ken
+Packaged: 2024-09-11 15:21:15 UTC; ken
 Author: Marc Kéry [aut],
   Andy Royle [aut],
   Mike Meredith [aut],
@@ -109,4 +110,4 @@ Author: Marc Kéry [aut],
     <https://www.ceh.ac.uk/our-science/projects/uk-butterfly-monitoring-scheme>)
 Maintainer: Ken Kellner <contact@kenkellner.com>
 Repository: CRAN
-Date/Publication: 2023-08-23 21:10:03 UTC
+Date/Publication: 2024-09-11 18:00:07 UTC

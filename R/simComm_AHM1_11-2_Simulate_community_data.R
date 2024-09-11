@@ -102,6 +102,9 @@ simComm <- function(type=c("det/nondet", "counts"), nsites=30, nreps=3, nspecies
 
 if(FALSE) x <- NULL # A kludge to cope with 'curve's odd way of using 'x'
 
+# Load raster package------------------------------------------
+checkNamespace("raster")
+
 # Checks and fixes for input data -----------------------------
 nsites <- round(nsites[1])
 nreps <- round(nreps[1])
@@ -221,19 +224,19 @@ if(type=="det/nondet"){
       mapPalette2 <- colorRampPalette(c("white", "yellow", "orange", "red"))
       # (3) True presence/absence matrix (z) for all species
       # mapPalette was 2 before
-      image(x = 1:nspecies, y = 1:nsites, z = t(z), col = mapPalette1(4), main =
+      raster::image(x = 1:nspecies, y = 1:nsites, z = t(z), col = mapPalette1(4), main =
       paste("True presence/absence (z) matrix\n (finite-sample N species =",
       Ntotal.fs,")"), frame = TRUE, xlim = c(0, nspecies+1),
       ylim = c(0, nsites+1), xlab = "Species", ylab = "Sites")
 
       # (4) Observed detection frequency for all species
-      image(x = 1:nspecies, y = 1:nsites, z = t(y.sum.all), col = mapPalette2(100),
+      raster::image(x = 1:nspecies, y = 1:nsites, z = t(y.sum.all), col = mapPalette2(100),
         main = paste("Observed detection frequencies"),
         xlim = c(0, nspecies+1), ylim = c(0, nsites+1),
         frame = TRUE, xlab = "Species", ylab = "Sites")
 
       # (5) Sites where a species was missed
-      image(x = 1:nspecies, y = 1:nsites, z = t(missed.sites), col = mapPalette1(2),
+      raster::image(x = 1:nspecies, y = 1:nsites, z = t(missed.sites), col = mapPalette1(2),
         main = paste("Matrix of missed presences\n (obs. N species =", Ntotal.obs,")"),
         frame = TRUE, xlim = c(0, nspecies+1), ylim = c(0, nsites+1), xlab = "Species",
         ylab = "Sites")
@@ -353,16 +356,16 @@ if(type=="counts"){
       mapPalette <- colorRampPalette(c("yellow", "orange", "red"))
       # (3) True abundance matrix (log(N+1)) for all species
       # mapPalette was 2 before
-      image(x = 1:nspecies, y = 1:nsites, z = log10(t(N)+1), col = mapPalette(100),
+      raster::image(x = 1:nspecies, y = 1:nsites, z = log10(t(N)+1), col = mapPalette(100),
        main =   paste("True log(abundance) (log10(N)) matrix\n (finite-sample N species =", sum(occurring.in.sample),")"), frame = TRUE, xlim = c(0, nspecies+1),
       zlim = c(0, log10(max(N))), xlab = "Species", ylab = "Sites")
       # (4) Observed maximum counts for all species
-      image(x = 1:nspecies, y = 1:nsites, z = log10(t(ymax.obs)+1), col = mapPalette(100), main = paste("Observed maximum counts (log10 + 1)"),
+      raster::image(x = 1:nspecies, y = 1:nsites, z = log10(t(ymax.obs)+1), col = mapPalette(100), main = paste("Observed maximum counts (log10 + 1)"),
         xlim = c(0, nspecies+1), frame = TRUE, xlab = "Species", ylab = "Sites", zlim = c(0, log10(max(N))))
       # (5) Ratio of max count to true N
       ratio <- ymax.obs/N
       ratio[ratio == "NaN"] <- 1
-      image(x = 1:nspecies, y = 1:nsites, z = t(ratio), col = mapPalette(100),
+      raster::image(x = 1:nspecies, y = 1:nsites, z = t(ratio), col = mapPalette(100),
         main = paste("Ratio of max count to true abundance (N)"),
         xlim = c(0, nspecies+1), frame = TRUE, xlab = "Species", ylab = "Sites",
         zlim = c(0, 1))

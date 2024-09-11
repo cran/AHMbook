@@ -62,6 +62,9 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   # Note that the parameters beta must be chosen such to avoid a too high 'filling' of the discrete approximation of the entire field B
   # ------------------------------------------------------
 
+  # -------------- Load raster package -----------------------
+  checkNamespace("raster")
+
   # -------------- Check and fix input -----------------------
   sqrt.npix <- round(sqrt.npix[1])
   stopifnotLength(alpha, 2)
@@ -83,9 +86,9 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   s.area <- 4
 
   # Approximate the landscape by many small pixels in a raster object
-  s <- temp <- raster(ncol=sqrt.npix, nrow=sqrt.npix, xmn=-1, xmx=1, ymn=-1, ymx=1, crs=NULL)
+  s <- temp <- raster::raster(ncol=sqrt.npix, nrow=sqrt.npix, xmn=-1, xmx=1, ymn=-1, ymx=1, crs=NULL)
   # s will become a Raster Stack, temp is a template to create new layers
-  s.loc <- xyFromCell(temp, 1:ncell(s))    # Coordinates of every pixel in S
+  s.loc <- raster::xyFromCell(temp, 1:raster::ncell(s))    # Coordinates of every pixel in S
 
   # PART A. Ecological process - where are the animals?
   # ---------------------------------------------------
@@ -95,26 +98,26 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   xcov <- standardize(xcov)    # Standardize covariate x
 
   # Fill covariate x into the raster s
-  values(s) <- xcov
+  raster::values(s) <- xcov
   names(s) <- 'x'
 
   # Calculate lambda as a function of X and add to Raster Stack
   X <- cbind(1, xcov)
-  values(temp) <- exp(X %*% beta)   # calculate lambda
+  raster::values(temp) <- exp(X %*% beta)   # calculate lambda
   names(temp) <- 'lambda'
-  s <- addLayer(s, temp)  # add to raster stack
+  s <- raster::addLayer(s, temp)  # add to raster stack
 
   # We use rejection sampling to get random draws from the IPP. The proposal
   #  distribution is uniform, ie, HPP:
   # How 'high' should the proposal density be? It must exceed the IPP everywhere.
-  ( maxlambda <- max(values(s)[,'lambda']) ) # ~ 900 per unit area
+  ( maxlambda <- max(raster::values(s)[,'lambda']) ) # ~ 900 per unit area
   (N.hpp <- suppressWarnings(rpois(1, maxlambda*s.area)))     # Number we need to draw
-  if(is.na(N.hpp) || N.hpp >= ncell(s))
+  if(is.na(N.hpp) || N.hpp >= raster::ncell(s))
     stop("The 'beta' settings result in intensities that are too high\nin the most intense region (more animals than pixels.)", call.=FALSE)
   # Draw from the proposal distribution
-  ind.hpp <- sample(1:ncell(s), size = N.hpp, replace = FALSE)   #  sampling w/o replacement ensures only 1 individual per pixel
+  ind.hpp <- sample(1:raster::ncell(s), size = N.hpp, replace = FALSE)   #  sampling w/o replacement ensures only 1 individual per pixel
   # reject draws depending on lambda (and hence X) to get the IPP draws
-  lambda.hpp <- values(s)[,'lambda'][ind.hpp]  # intensities at those pixels
+  lambda.hpp <- raster::values(s)[,'lambda'][ind.hpp]  # intensities at those pixels
   ind.ipp <- rbinom(N.hpp, 1, lambda.hpp/maxlambda)   # use intensity lambda to determine whether to accept or reject.
   (N.ipp <- sum(ind.ipp))               # about 1800 individuals in IPP
   pixel.id.ipp <- ind.hpp[ind.ipp == 1] # Gives id of every pixel in landscape that has an individual, a vector of numbers, length N.ipp = total population
@@ -125,19 +128,19 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   wcov <- getCovSurface(mWt=c(0.25,0.65), sWt=c(0.25, 0.5),rho=0.1, loc=s.loc)
   wcov <- standardize(wcov)            # Standardize covariate w
   # Add to the raster stack
-  values(temp) <- wcov
+  raster::values(temp) <- wcov
   names(temp) <- 'w'
-  s <- addLayer(s, temp)
+  s <- raster::addLayer(s, temp)
 
   # Compute value of thinning parameter b (= probability of detection)
   #  for each cell as a function of alpha and covariate W
   W <- cbind(1, wcov)   # Design matrix W for thinning
-  values(temp) <- plogis(W %*% alpha) # thinning coefs
+  raster::values(temp) <- plogis(W %*% alpha) # thinning coefs
   names(temp) <- 'pTrue'
-  s <- addLayer(s, temp)
+  s <- raster::addLayer(s, temp)
 
   # ... simulate presence-only data (= detections of individuals as a thinned point process)
-  pTrue.ipp <- values(s)[,'pTrue'][pixel.id.ipp]
+  pTrue.ipp <- raster::values(s)[,'pTrue'][pixel.id.ipp]
   y.ipp1 <- rbinom(N.ipp, size=1, prob=pTrue.ipp) # 1 = detected, 0 = not detected
   # A 1/0 vector, length N.ipp
   pixel.id.det1 <- pixel.id.ipp[y.ipp1 == 1]
@@ -153,12 +156,12 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   #### Part C: simulate replicate count data
   ## ---------------------------------------
   # Get the info on animal location into our Raster Stack as a layer:
-  spop <- dropLayer(s, c('lambda','pTrue')) # clean up, just keep covars
-  z <- rep(0, ncell(spop))
+  spop <- raster::dropLayer(s, c('lambda','pTrue')) # clean up, just keep covars
+  z <- rep(0, raster::ncell(spop))
   z[pixel.id.ipp] <- 1
-  values(temp) <- z
+  raster::values(temp) <- z
   names(temp) <- 'presence'  # 1 if animal in pixel, 0 otherwise (max 1 animal per pixel)
-  spop <- addLayer(spop, temp)
+  spop <- raster::addLayer(spop, temp)
 
   # Form quadrats of side quadrat.size (default 4 -> area 16 -> 625 quadrats)
   quadfact <- c(quadrat.size, quadrat.size)
@@ -166,17 +169,17 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   # mean is ok for x and w, but for 'presence' we need the sum
   abund <- raster::aggregate(raster::subset(spop, 'presence'), fact=quadfact, fun=sum)
   names(abund) <- 'N'
-  squad <- addLayer(squad, abund)
-  squad <- dropLayer(squad, 'presence') # clean up, N/16 not useful
+  squad <- raster::addLayer(squad, abund)
+  squad <- raster::dropLayer(squad, 'presence') # clean up, N/16 not useful
 
   # Simulate replicate counts at every quadrat (aka "site")
-  nsite <- ncell(squad)          # number of sites/quadrats in count design
-  N <- values(squad)[,'N']       # Extract latent abundance at each site
+  nsite <- raster::ncell(squad)  # number of sites/quadrats in count design
+  N <- raster::values(squad)[,'N']       # Extract latent abundance at each site
 
   # Compute values of detection probability for each 16-cell pixel in count survey
   # (Here we use the same covar, w, as the detection-only model, as do Koshkina et al,
   #   but a different covar could be generated.)
-  pcount <- plogis(gamma[1] + gamma[2] * values(squad)[,'w'])
+  pcount <- plogis(gamma[1] + gamma[2] * raster::values(squad)[,'w'])
 
   # Do the nsurveys surveys
   counts <- array(NA, dim = c(nsite, nsurveys))
@@ -184,7 +187,7 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
     counts[,j] <- rbinom(nsite, N, pcount)
   }
 
-  fullCountData <- cbind(quadID=1:nsite, values(squad), counts)
+  fullCountData <- cbind(quadID=1:nsite, raster::values(squad), counts)
 
   # Draw random sample of 'nquadrats' quadrats from the total number, nsite
   selQuad <- sort(sample(1:nsite, nquadrats, replace = FALSE))
@@ -219,7 +222,7 @@ simDataDK1 <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
     mnc <- rowMeans(counts)
     mnc[-selQuad] <- NA
     cnt <- raster::subset(squad, 'N')
-    values(cnt) <- mnc
+    raster::values(cnt) <- mnc
     raster::plot(cnt, colNA='darkgrey',axes = FALSE, box = FALSE, asp=1,
       main = "Mean counts for \neach quadrat surveyed,\ngrey if unsurveyed")
   }    # end show.plot

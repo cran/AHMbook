@@ -97,6 +97,7 @@ str(tmp <- simDataDK(), 1)  # use str(., max.level=1) to limit the amount of out
 
 str(tmp <- simDataDK(show.plot=FALSE), 1)  # no plots
 
+\donttest{
 str(tmp <- simDataDK(sqrt.npix = 500), 1)  # much larger landscape
 
 str(tmp <- simDataDK(alpha = c(-1,1)), 1)  # positive effect of W on bias rate parameter b
@@ -106,4 +107,5 @@ str(tmp <- simDataDK(beta = c(6, 0.5)), 1) # lower density
 str(tmp <- simDataDK(drop.out.prop = 0), 1)# No final uniform thinning ("drop out")
 
 str(tmp <- simDataDK(beta = c(6, 1)), 1)   # steeper gradient of habitat suitability
+}
 }

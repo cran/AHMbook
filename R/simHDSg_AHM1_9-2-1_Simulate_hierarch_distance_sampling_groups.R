@@ -111,7 +111,7 @@ if(show.plot) {
       "Located groups in point transects", xlim = c(0, 2*B),
       ylim = c(0, 2*B), col = data[,1], asp = 1)
       points(B, B, pch = "+", cex = 3)
-      plotrix::draw.circle(B, B, B)
+      draw.circle(B, B, B)
       hist(data[,"d"], col = "lightblue", breaks = 20, main =
       "Frequency of distances to groups", xlab = "Distance")
       ttt <- table(data[,1])

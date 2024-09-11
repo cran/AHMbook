@@ -22,6 +22,9 @@ simCJS <- function(
   #  ... and catch errors.
   #  Modified code for generating z and ch (gives different values with set.seed)
   #  Restore ask and par on exit.
+  
+  # Load raster package-------------------------------------
+  checkNamespace("raster")
 
   # Check and fixes for input data -------------------------
   n.occ <- round(n.occ[1])
@@ -86,12 +89,12 @@ simCJS <- function(
       par(mfrow = c(2, 2))
       # Plot the true alive/dead pattern (z)
       mapPalette <- colorRampPalette(c("white", "black"))
-      image(x = 1:n.occ, y = 1:n.ind, z = t(z), col = mapPalette(10), axes = TRUE,
+      raster::image(x = 1:n.occ, y = 1:n.ind, z = t(z), col = mapPalette(10), axes = TRUE,
         xlab = "Year", ylab = "Individual",
         main = 'z matrix of latent states in the CJS model: \nAlive (black) or dead (white) per individual and occasion')
 
       # Plot the observed alive/dead pattern (y, or ch)
-      image(x = 1:n.occ, y = 1:n.ind, z = t(ch), col = mapPalette(10), axes = TRUE,
+      raster::image(x = 1:n.occ, y = 1:n.ind, z = t(ch), col = mapPalette(10), axes = TRUE,
         xlab = "Year", ylab = "Individual",
         main = 'Observed data = capture-history matrix ch in the CJS model: \nDetected (black) or not detected (white) per individual and occasion')
       box()
@@ -100,7 +103,7 @@ simCJS <- function(
       tmp <- z    # copy z into tmp
       tmp[z==1 & ch == 0] <- -1.1  # Mark detection errors as -1
       mapPalette <- colorRampPalette(c("blue", "white", "black"))
-      image(x = 1:n.occ, y = 1:n.ind, z = t(tmp), col = mapPalette(10), axes = TRUE,
+      raster::image(x = 1:n.occ, y = 1:n.ind, z = t(tmp), col = mapPalette(10), axes = TRUE,
       xlab = "Year", ylab = "Individual", main = 'Combopic of z and ch: not in study (white), alive & detected (black), \nalive & undetected (blue) and dead (grey) per individual and occasion')
 
       # Population size trajectory of marked and alive in study area

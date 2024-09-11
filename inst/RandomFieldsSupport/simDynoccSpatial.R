@@ -103,6 +103,9 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
 
   if(FALSE) {x <- NULL; rm(x)}  # Stops R CMD check choking on 'curve'.
 
+  checkNamespace("raster")
+  checkNamespace("fields")
+
   # Checks and fixes for input data -----------------------------
   side <- round(side[1])
   nyears <- round(nyears[1])
@@ -164,8 +167,8 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
     message("Using package 'fields' instead of 'RandomFields'; see help(simDynoccSpatial).")
     if(!is.na(seed.XAC))
       set.seed(seed.XAC)
-    obj <- circulantEmbeddingSetup(grid=list(x=xcoord, y=ycoord), Covariance="Exponential", aRange=theta.XAC)
-    tmp <- try(circulantEmbedding(obj), silent=TRUE)
+    obj <- fields::circulantEmbeddingSetup(grid=list(x=xcoord, y=ycoord), Covariance="Exponential", aRange=theta.XAC)
+    tmp <- try(fields::circulantEmbedding(obj), silent=TRUE)
     if(inherits(tmp, "try-error"))
       stop("Simulation of random field failed.\nTry with smaller values for 'side' or 'theta.XAC'.")
     XAC <- matrix(tmp, ncol = side, byrow = TRUE)
@@ -228,19 +231,19 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
 
       # Plot random field covariate XAC
       # rows are in x, columns in y direction
-      image(1:side, 1:side, XAC, col=topo.colors(100), 
+      raster::image(1:side, 1:side, XAC, col=topo.colors(100), 
           main = paste("Gaussian random field XAC with \n neg. exponential correlation (range =", theta.XAC, ")"), 
           xlab = 'x', ylab = 'y')
 
-      image(1:side, 1:side, psi[,,1], col=topo.colors(100),
+      raster::image(1:side, 1:side, psi[,,1], col=topo.colors(100),
           main = paste("Initial occupancy probability"), xlab = 'x', ylab = 'y')
 
-      image(1:side, 1:side, z[,,1], col=c("white", "black"), 
+      raster::image(1:side, 1:side, z[,,1], col=c("white", "black"), 
           main = paste("Initial presence/absence (true system state z):\n black = occupied, white = unoccupied"),
           xlab = 'x', ylab = 'y')
       abline(h = 0:side+0.5, v = 0:side+0.5, col = "lightgrey")
 
-      image(1:side, 1:side, Xauto[,,1], col=topo.colors(100), 
+      raster::image(1:side, 1:side, Xauto[,,1], col=topo.colors(100), 
           main = "Autocovariate between year 1 and year 2", xlab = 'x', ylab = 'y')
     }, silent = TRUE)
     if(inherits(tryPlot, "try-error")) {
@@ -272,15 +275,15 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
     # --------------------
     if(show.plots) {
       tryPlot <- try( {
-        image(1:side, 1:side, phi[,,k-1], col=topo.colors(100),
+        raster::image(1:side, 1:side, phi[,,k-1], col=topo.colors(100),
               main = paste("Persistence between year", k-1, "and year", k), xlab = 'x', ylab = 'y')
-        image(1:side, 1:side, gamma[,,k-1], col=topo.colors(100),
+        raster::image(1:side, 1:side, gamma[,,k-1], col=topo.colors(100),
               main = paste("Colonization between year", k-1, "and year", k), xlab = 'x', ylab = 'y')
-        image(1:side, 1:side, z[,,k], col=c("white", "black"),
+        raster::image(1:side, 1:side, z[,,k], col=c("white", "black"),
             main = paste('Presence/absence (z) in year', k, ':\n black = occupied, white = unoccupied'),
             xlab = 'x', ylab = 'y')
         abline(h = 0:side+0.5, v = 0:side+0.5, col = "lightgrey")
-        image(1:side, 1:side, Xauto[,,k], col=topo.colors(100),
+        raster::image(1:side, 1:side, Xauto[,,k], col=topo.colors(100),
             main = paste("Autocovariate between year", k, "and year", k+1), xlab = 'x', ylab = 'y')
       }, silent = TRUE)
       if(inherits(tryPlot, "try-error")) {
@@ -312,7 +315,7 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
     for(j in 1:nsurveys){               # Loop over replicates
       prob <- z[,,k] * p[,,j,k]  # zero out p for unoccupied sites
       y[,,j,k] <- rbinom(M, 1, prob)
-    # image(1:side, 1:side, y[,,j,k], main = paste("Year", k, "and rep", j))
+    # raster::image(1:side, 1:side, y[,,j,k], main = paste("Year", k, "and rep", j))
         # Look at clumped pattern in y
     }
   }
@@ -345,9 +348,9 @@ simDynoccSpatial <- function(side = 50, nyears = 10, nsurveys = 3,
       # Plots comparing true and observed latent states
       par(mfrow = c(2,2), mar = c(5,4,5,2), cex.main = 1.3, cex.lab = 1.5, cex.axis = 1.2)
       for(k in 1:nyears){
-        image(1:side, 1:side, z[,,k], col=c("white", "black"), main = paste('Presence/absence (z) in year', k), xlab = 'x', ylab = 'y')
+        raster::image(1:side, 1:side, z[,,k], col=c("white", "black"), main = paste('Presence/absence (z) in year', k), xlab = 'x', ylab = 'y')
         abline(h = 0:side+0.5, v = 0:side+0.5, col = "lightgrey")
-        image(1:side, 1:side, zobs[,,k], col=c("white", "black"), main = paste('Ever_detected (zobs) in year', k), xlab = 'x', ylab = 'y')
+        raster::image(1:side, 1:side, zobs[,,k], col=c("white", "black"), main = paste('Ever_detected (zobs) in year', k), xlab = 'x', ylab = 'y')
         abline(h = 0:side+0.5, v = 0:side+0.5, col = "lightgrey")
       }
     }, silent = TRUE)

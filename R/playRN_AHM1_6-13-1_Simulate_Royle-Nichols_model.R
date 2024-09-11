@@ -27,7 +27,7 @@ umf <- unmarkedFrameOccu(y=y, siteCovs= data.frame(cov2 = data$site.cov[,2],
 # Fit data-generating model
 fm <- occuRN(~cov3+obscov ~cov2, data=umf)
 # Estimate local abundance N and plot against true N (known in simulation)
-Nest <- bup(ranef(fm, K = ), "mean")
+Nest <- bup(ranef(fm), "mean")
 if(show.plots) {
   # par(mfrow = c(1,1)) ## leave it alone
   tryPlot <- try( {

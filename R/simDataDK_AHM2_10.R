@@ -62,6 +62,9 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   # Note that the parameters beta must be chosen such to avoid a too high 'filling' of the discrete approximation of the entire field B
   # ------------------------------------------------------
 
+  # -------------- Load raster package -----------------------
+  checkNamespace("raster")
+
   # -------------- Check and fix input -----------------------
   sqrt.npix <- round(sqrt.npix[1])
   stopifnotLength(alpha, 2)
@@ -83,9 +86,9 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   s.area <- 4
 
   # Approximate the landscape by many small pixels in a raster object
-  s <- temp <- raster(ncol=sqrt.npix, nrow=sqrt.npix, xmn=-1, xmx=1, ymn=-1, ymx=1, crs=NULL)
+  s <- temp <- raster::raster(ncol=sqrt.npix, nrow=sqrt.npix, xmn=-1, xmx=1, ymn=-1, ymx=1, crs=NULL)
   # s will become a Raster Stack, temp is a template to create new layers
-  s.loc <- xyFromCell(temp, 1:ncell(s))    # Coordinates of every pixel in S
+  s.loc <- raster::xyFromCell(temp, 1:raster::ncell(s))    # Coordinates of every pixel in S
 
   # PART A. Ecological process - where are the animals?
   # ---------------------------------------------------
@@ -95,7 +98,7 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   xcov <- standardize(xcov)    # Standardize covariate x
 
   # Fill covariate x into the raster s
-  values(s) <- xcov
+  raster::values(s) <- xcov
   names(s) <- 'x'
 
   # Calculate log(lambda) as a function of X
@@ -122,9 +125,9 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   # How many in each pixel?
   n <- tabulate(pixel.id.pop, nbins=sqrt.npix^2)
   # Add to the raster stack
-  values(temp) <- n
+  raster::values(temp) <- n
   names(temp) <- 'n'
-  s <- addLayer(s, temp)
+  s <- raster::addLayer(s, temp)
 
   # PART B. The detection-only observation model
   # --------------------------------------------
@@ -132,9 +135,9 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   wcov <- getCovSurface(mWt=c(0.25,0.65), sWt=c(0.25, 0.5),rho=0.1, loc=s.loc)
   wcov <- standardize(wcov)            # Standardize covariate w
   # Add to the raster stack
-  values(temp) <- wcov
+  raster::values(temp) <- wcov
   names(temp) <- 'w'
-  s <- addLayer(s, temp)
+  s <- raster::addLayer(s, temp)
 
   # Compute value of thinning parameter b (= probability of detection)
   #  for each cell as a function of alpha and covariate W
@@ -162,17 +165,17 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
   # mean is ok for x and w, but for 'n' we need the sum
   abund <- raster::aggregate(raster::subset(s, 'n'), fact=quadfact, fun=sum)
   names(abund) <- 'N'
-  squad <- addLayer(squad, abund)
-  squad <- dropLayer(squad, 'n') # clean up, N/16 not useful
+  squad <- raster::addLayer(squad, abund)
+  squad <- raster::dropLayer(squad, 'n') # clean up, N/16 not useful
 
   # Simulate replicate counts at every quadrat (aka "site")
-  nsite <- ncell(squad)          # number of sites/quadrats in count design
-  N <- values(squad)[,'N']       # Extract latent abundance at each site
+  nsite <- raster::ncell(squad)          # number of sites/quadrats in count design
+  N <- raster::values(squad)[,'N']       # Extract latent abundance at each site
 
   # Compute values of detection probability for each 16-cell pixel in count survey
   # (Here we use the same covar, w, as the detection-only model, as do Koshkina et al,
   #   but a different covar could be generated.)
-  pcount <- plogis(gamma[1] + gamma[2] * values(squad)[,'w'])
+  pcount <- plogis(gamma[1] + gamma[2] * raster::values(squad)[,'w'])
 
   # Do the nsurveys counts
   counts <- array(NA, dim = c(nsite, nsurveys))
@@ -180,7 +183,7 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
     counts[,j] <- rbinom(nsite, N, pcount)
   }
 
-  fullCountData <- cbind(quadID=1:nsite, values(squad), counts)
+  fullCountData <- cbind(quadID=1:nsite, raster::values(squad), counts)
 
   # Draw random sample of 'nquadrats' quadrats from the total number, nsite
   selQuad <- sort(sample(1:nsite, nquadrats, replace = FALSE))
@@ -213,7 +216,7 @@ simDataDK <- function(sqrt.npix = 100, alpha = c(-1,-1), beta = c(6,0.5),
       mnc <- rowMeans(counts)
       mnc[-selQuad] <- NA
       cnt <- raster::subset(squad, 'N')
-      values(cnt) <- mnc
+      raster::values(cnt) <- mnc
       raster::plot(cnt, colNA='darkgrey',axes = FALSE, box = FALSE, asp=1,
         main = "Mean counts for \neach quadrat surveyed,\ngrey if unsurveyed")
     }, silent = TRUE)

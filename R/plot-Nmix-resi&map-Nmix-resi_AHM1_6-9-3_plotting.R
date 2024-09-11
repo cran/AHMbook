@@ -51,6 +51,10 @@ map.Nmix.resi <- function(fm, x, y){
 #    object named fm, which was fit by function pcount in unmarked
 # Function arguments are the fitted model object and the x and y coordinates
 #    of every site
+
+# Load required package
+checkNamespace("sp")
+
 mean.resi <- apply(residuals(fm), 1, mean, na.rm = TRUE)
 mean.resi[mean.resi == "NaN"] <- mean(mean.resi, na.rm = TRUE)
 spdata <- data.frame(residuals = mean.resi, x = x, y = y)

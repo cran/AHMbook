@@ -26,6 +26,9 @@ simOccSpatial <- function(nsurveys = 3, mean.psi = 0.6, beta = c(2, -2), mean.p 
 BerneseOberland <- NULL # otherwise "no visible binding for global variable 'BerneseOberland'" when checked
 data(BerneseOberland, envir = environment())
 
+# Load raster package
+checkNamespace("raster")
+
 # Simulate spatial random field
 set.seed(seeds[1])
 s <- simExpCorrRF(variance = variance.RF, theta = theta.RF, show.plots = show.plots)

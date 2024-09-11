@@ -14,6 +14,9 @@ bigCrossCorr <- function(x, big = 0.6, digits=3) {
   # See ?coda::crosscorr for details
   #
   # Mike Meredith, 1 Jan 2017
+  
+  # Load required package
+  checkNamespace("coda")
 
   if(!inherits(x, c("mcmc", "mcmc.list")))
     stop("'x' must be an 'mcmc' or 'mcmc.list' object.")

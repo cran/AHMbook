@@ -20,6 +20,9 @@ sim.spatialDS <- function(N=1000, beta = 1, sigma=1, keep.all=FALSE,
 #   sigma: scale of half-normal detection function
 #   keep.all: return the data for all individuals, whether detected or not
 
+# Load raster package------------------------------------------
+checkNamespace("raster")
+
 # Checks and fixes for input data -----------------------------
 N <- round(N[1])
 stopifNegative(sigma, allowZero=FALSE)
@@ -71,7 +74,7 @@ y <- rbinom(N, 1, p)                                           # detected or not
 if(show.plot) {
   op <- par(mar=c(3,3,3,6)) ; on.exit(par(op))
   tryPlot <- try( {
-    image(rasterFromXYZ(cbind(as.matrix(gr),x)), col=topo.colors(10), asp=1, bty='n') # need to convert gr to a matrix
+    raster::image(raster::rasterFromXYZ(cbind(as.matrix(gr),x)), col=topo.colors(10), asp=1, bty='n') # need to convert gr to a matrix
     rect(0, 0, 2*B, 2*B)  # draw box around the image
     # draw.circle(B, B, B)
     points(B, B, pch="+", cex=3)

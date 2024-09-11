@@ -9,6 +9,9 @@ function(N=1000, beta = 1, sigma=0.25, alpha0 = -2, W=1/2, L = 4, perp=FALSE, sh
   #   sigma: scale of half-normal detection function
   #   W : truncation distance = strip half-width.
 
+  # Load raster package
+  checkNamespace("raster")
+
   # Create coordinates rasterized transect
   delta<- 0.1                 # '2D bin width'
   # Following code creates coordinates in order of "raster"
@@ -24,7 +27,7 @@ function(N=1000, beta = 1, sigma=0.25, alpha0 = -2, W=1/2, L = 4, perp=FALSE, sh
   # Create spatially correlated covariate x and plot it
   V <- exp(-e2dist(gr,gr)/1)
   x <- t(chol(V))%*%rnorm(nrow(gr))
-  r <- rasterFromXYZ(cbind(gr,x))
+  r <- raster::rasterFromXYZ(cbind(gr,x))
 
   # Simulate point locations as function of habitat covariate x
   probs <- exp(beta*x)/sum(exp(beta*x)) # probability of point in pixel (sum = 1)
@@ -92,7 +95,7 @@ function(N=1000, beta = 1, sigma=0.25, alpha0 = -2, W=1/2, L = 4, perp=FALSE, sh
   if(show.plots) {
     oldpar <- par(mar=c(3,3,3,6), "mfrow") ; on.exit(par(oldpar))
     tryPlot <- try( {
-      image(r, col=topo.colors(10))
+      raster::image(r, col=topo.colors(10))
       abline(0.5, 0, lwd=2)
       image_scale(x, col=topo.colors(10))
       points(u1, u2, pch=20, col='black', cex = 1)  # plot points ### some pixels have >1 animal

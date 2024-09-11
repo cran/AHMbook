@@ -20,6 +20,9 @@ simSpatialDSte <- function(
     theta=2,        # exponential correlation in the spatial covariate
     show.plots=3) {
 
+  # Load raster package------------------------------------------
+  checkNamespace("raster")
+
   # Checks and fixes for input data -----------------------------
   nsites <- round(nsites[1])
   dim <- round(dim[1])
@@ -133,7 +136,7 @@ simSpatialDSte <- function(
         par(mfrow = c(1,2))
       if(nsurveys > 2)
         par(mfrow = c(2,2))
-      img <- rasterFromXYZ(cbind(gr, x[,i]))
+      img <- raster::rasterFromXYZ(cbind(gr, x[,i]))
       for(j in 1:min(nsurveys, 4)) {
         raster::plot(img, col=rampBYR(255), axes=FALSE, box=FALSE)
         title(main=paste("survey", j), line=0.2)

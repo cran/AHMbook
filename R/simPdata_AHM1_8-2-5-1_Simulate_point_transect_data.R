@@ -45,7 +45,7 @@ if(show.plot) {
     points(u1[d <= B], u2[d <= B], pch = 16, col = "black")
     points(u1[y==1], u2[y==1], pch = 16, col = "blue")
     points(B, B, pch = "+", cex = 3, col = "red")
-    plotrix::draw.circle(B, B, B)
+    draw.circle(B, B, B)
   }, silent = TRUE)
   if(inherits(tryPlot, "try-error"))
     tryPlotError(tryPlot)

@@ -88,7 +88,7 @@ if(show.plots) {
         "Locations of detected individuals", xlim = c(-B, B),
         ylim = c(-B, B), col = data[,1], asp = 1)
     points(0, 0, pch = "+", cex = 3, col = "black")
-    plotrix::draw.circle(0, 0, B)
+    draw.circle(0, 0, B)
 
     tmp <- hist(unlist(Nlist), breaks = 20, xlim=c(0, B), xlab = "Distance",
         main = "Frequency of distances\nblue: detected, gray: undetected")

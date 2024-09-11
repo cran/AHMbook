@@ -32,6 +32,9 @@ simPPe <- function(lscape.size = 150, buffer.width = 25, variance.X = 1, theta.X
   # quads.along.side: number of quadrats along the side of the core area
   #    (this is the parameter of the gridding process
   #    and determines the size of the quadrats)
+  
+  checkNamespace("raster")
+  checkNamespace("field")
 
   # -------------- Check and fix input -----------------------
   buffer.width <- round(buffer.width[1])
@@ -81,8 +84,8 @@ simPPe <- function(lscape.size = 150, buffer.width = 25, variance.X = 1, theta.X
       x=x, y=y, grid=TRUE)@data$variable1, ncol = lscape.size) # MVN r.v. with spatial correlation
   } else {
     message("Using package 'fields' instead of 'RandomFields'; see help(simPPe).")
-    obj <- circulantEmbeddingSetup(grid=list(x=x, y=y), Covariance="Exponential", aRange=theta.X)
-    tmp <- try(circulantEmbedding(obj), silent=TRUE)
+    obj <- fields::circulantEmbeddingSetup(grid=list(x=x, y=y), Covariance="Exponential", aRange=theta.X)
+    tmp <- try(fields::circulantEmbedding(obj), silent=TRUE)
     if(inherits(tmp, "try-error"))
       stop("Simulation of random field failed.\nTry with smaller values for 'lscape.size' or 'theta.X'.")
     field <- matrix(tmp * sqrt(variance.X), ncol = lscape.size)
@@ -125,7 +128,7 @@ simPPe <- function(lscape.size = 150, buffer.width = 25, variance.X = 1, theta.X
     tryPlot <- try( {
       # *** Fig. 1: Original point pattern
       # Random field of X with activity-centers overlaid
-      image(rasterFromXYZ(cbind(grid, c(field))), col=topo.colors(10),
+      raster::image(raster::rasterFromXYZ(cbind(grid, c(field))), col=topo.colors(10),
           main = "Point pattern with\ncore and buffer area",
           xlab = "", ylab = "", axes = FALSE, asp = 1)
       mtext(paste("Mean intensity (lambda) =", round(lambda_pp, 5)), side=1)
@@ -138,7 +141,7 @@ simPPe <- function(lscape.size = 150, buffer.width = 25, variance.X = 1, theta.X
       # *** Fig. 2: Show abundance and presence/absence in each quadrat on original landscape ***
       # Covariate 1: the Gaussian random field with autocorrelation
       # Reproduce random field with activity centers
-      image(rasterFromXYZ(cbind(grid, c(field))), col=topo.colors(10), main = "Abundance, N",
+      raster::image(raster::rasterFromXYZ(cbind(grid, c(field))), col=topo.colors(10), main = "Abundance, N",
           xlab = "", ylab = "", axes = FALSE, asp = 1)
       mtext(paste0("Mean(N) = ", E_N, ", var(N) = ", round(var(c(Nac)), 2)), side=1)
       polygon(c(buffer.width, size.core+buffer.width, size.core+buffer.width, buffer.width),
@@ -161,7 +164,7 @@ simPPe <- function(lscape.size = 150, buffer.width = 25, variance.X = 1, theta.X
 
       # Figure 3 for presence/absence of activity centers (= distribution)
       # Reproduce random field with activity centers
-      image(rasterFromXYZ(cbind(grid, c(field))), col=topo.colors(10), main = "Occurrence, z",
+      raster::image(raster::rasterFromXYZ(cbind(grid, c(field))), col=topo.colors(10), main = "Occurrence, z",
           xlab = "", ylab = "", axes = FALSE, asp = 1)
       mtext(paste("Mean(z) =", E_z), side=1)
       polygon(c(buffer.width, size.core+buffer.width, size.core+buffer.width, buffer.width),

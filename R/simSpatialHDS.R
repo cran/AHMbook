@@ -13,6 +13,9 @@ function(lam0 = 4 , sigma= 1.5,  B=3, nsites=100, beta1 = 1, npix = 20, show.plo
 # sigma: scale of half-normal detection function
 # B: circle radius
 
+# Load raster package------------------------------------------
+checkNamespace("raster")
+
 # Checks and fixes for input data -----------------------------
 stopifNegative(lam0, allowZero=FALSE)
 stopifNegative(sigma, allowZero=FALSE)
@@ -63,8 +66,8 @@ for(s in 1:nsites){
 
   if(s <= show.plots) {
     tryPlot <- try( {
-      img <- rasterFromXYZ(cbind(gr,z))
-      image(img, col=topo.colors(10))
+      img <- raster::rasterFromXYZ(cbind(gr,z))
+      raster::image(img, col=topo.colors(10))
       #draw.circle(3,3,B)
       image_scale(z,col=topo.colors(10))
       points(u1,u2,pch=16,col='black')

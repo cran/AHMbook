@@ -13,6 +13,9 @@
 
 simDSM <- function(X, Ntotal = 400, sigma = 0.65, beta1 = 1.0,
     nsurveys = 2, xlim = c(-0.5, 3.5), ylim = c(-0.5, 4.5), show.plots = TRUE) {
+  
+  # Load raster package
+  checkNamespace("raster")
 
   # Create coordinates rasterized transect
   delta <- 0.2               # 2D bin width
@@ -68,7 +71,7 @@ simDSM <- function(X, Ntotal = 400, sigma = 0.65, beta1 = 1.0,
   if(show.plots) {
     oldpar <- par(mar = c(3,3,3,6)); on.exit(par(oldpar))
     tryPlot <- try( {
-      image(r <- rasterFromXYZ(cbind(gr,x)), col = topo.colors(10))
+      raster::image(r <- raster::rasterFromXYZ(cbind(gr,x)), col = topo.colors(10))
       image_scale(x, col = topo.colors(10))
       lines(X, col = "black", pch = 20, lwd = 3)
       points(sx, sy, pch = 16, col = "black", lwd=1 )
