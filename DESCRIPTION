@@ -2,8 +2,8 @@ Package: AHMbook
 Type: Package
 Title: Functions and Data for the Book 'Applied Hierarchical Modeling
         in Ecology' Vols 1 and 2
-Version: 0.2.10
-Date: 2024-09-11
+Version: 0.2.12
+Date: 2026-04-14
 Depends: R (>= 2.10)
 Imports: grDevices, graphics, methods, stats, utils, unmarked (>=
         0.12.2), mvtnorm
@@ -33,7 +33,7 @@ Authors@R: c(
   person("Mathias", "Tobler", role="ctb"),
   person("Gesa", "von Hirschheydt", role="ctb", comment="simOccCat"),
   person("Fridolin", "Zimmermann", role="dtc", comment="EurasianLynx"),
-  person("Aargau Biodiversity Monitoring Program (LANAG)", role="dtc", comment("SwissMarbledWhite")),
+  person("Aargau Biodiversity Monitoring Program (LANAG)", role="dtc", comment="SwissMarbledWhite"),
   person("British Ornithological Trust", role="dtc", comment="willowWarbler, UKmarbledWhite, <https://www.bto.org/>"),
   person("Butterfly Conservation", role=c("dtc", "cph"), comment="UKmarbledWhite, <https://butterfly-conservation.org>"),
   person("Centre for Ecology & Hydrology", role=c("dtc", "cph"), comment="UKmarbledWhite, <https://www.ceh.ac.uk>"),
@@ -54,10 +54,10 @@ License: GPL (>= 3)
 Copyright: file COPYRIGHTS
 NeedsCompilation: no
 URL: https://www.mbr-pwrc.usgs.gov/pubanalysis/keryroylebook/
-BugReports: https://github.com/hmecology/AHMbook/issues
+BugReports: https://github.com/ecoverseR/AHMbook/issues
 Encoding: UTF-8
 Language: en-US
-Packaged: 2024-09-11 15:21:15 UTC; ken
+Packaged: 2026-04-14 14:11:36 UTC; ken
 Author: Marc Kéry [aut],
   Andy Royle [aut],
   Mike Meredith [aut],
@@ -82,7 +82,8 @@ Author: Marc Kéry [aut],
   Mathias Tobler [ctb],
   Gesa von Hirschheydt [ctb] (simOccCat),
   Fridolin Zimmermann [dtc] (EurasianLynx),
-  Aargau Biodiversity Monitoring Program (LANAG) [dtc],
+  Aargau Biodiversity Monitoring Program (LANAG) [dtc]
+    (SwissMarbledWhite),
   British Ornithological Trust [dtc] (willowWarbler, UKmarbledWhite,
     <https://www.bto.org/>),
   Butterfly Conservation [dtc, cph] (UKmarbledWhite,
@@ -110,4 +111,4 @@ Author: Marc Kéry [aut],
     <https://www.ceh.ac.uk/our-science/projects/uk-butterfly-monitoring-scheme>)
 Maintainer: Ken Kellner <contact@kenkellner.com>
 Repository: CRAN
-Date/Publication: 2024-09-11 18:00:07 UTC
+Date/Publication: 2026-04-15 07:10:25 UTC
